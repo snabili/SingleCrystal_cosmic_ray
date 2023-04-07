@@ -1,0 +1,95 @@
+<!-- ====================================================================== -->
+<!--                                                                        -->
+<!--    XML description of the complete SiD tracker detector                -->
+<!--    of the SiD linear collider detector design.                         -->
+<!--                                                                        -->
+<!--    Contained are the required                                          -->
+<!--      ++ global constants used uniquely by this module                  -->
+<!--      ++ visualization attributes                                       -->
+<!--      ++ the definition of the readout structure and the                -->
+<!--         readout segmentation (if necessary)                            -->
+<!--      ++ the include statements for the sensitive detectors and         -->
+<!--         the corresponding support structure(s)                         -->
+<!--                                                                        -->
+<!--                                                                        -->
+<!--   @author  M.Frank                                                     -->
+<!--   @date    14/11/2014                                                  -->
+<!--                                                                        -->
+<!-- ====================================================================== -->
+
+
+<!-- please note these are half lengths and widths -->
+
+  <detectors>
+    <detector id="EcalBarrel_ID" name="DRCrystal" type="DD4hep_DRCrystal" readout="DRCNoSegment" vis="Invisible">
+
+
+ <comment>Electromagnetic Calorimeter Barrel</comment>
+
+
+
+<!-- <dimensions width="DRcrystalwidth" z_length="DRcrystallength+0.8+0.02+0.3+0.1+0.02" />-->
+<dimensions width="DRcrystalwidth" z_length="DRcrystallength"/>
+
+
+
+<!--  a tower may have several different patterns that repeat.
+for example, there may be 10 layers with one thickness of Pb and scint and 20 with another set of thicknesses.
+each of these repeating things is a "layer". (so in this example, two "layers") 
+within a layer is a slice os the Pb and scint are slices
+the assembled tower is a Stave 
+-->
+
+ <staves vis="Invisible"/>
+<layer repeat="1" vis="Invisible">
+      <shape material = "kill_SiPM_left_1" thickness = "0.13" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
+      
+      <!--<shape material = "Silicone_gap" thickness = "0.1" sensitive="yes" limits="cal_limits" vis="CrystalEcalGapVis"/>-->
+ 
+      
+      <chamber material = "kill_SiPM_left_2" thickness = "0.13" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
+      
+      <!--<chamber material = "Silicone_gap" thickness = "0.1" sensitive="yes" limits="cal_limits" vis="CrystalEcalGapVis"/>-->
+
+
+      <disk material = "kill_SiPM_left_3" thickness = "0.13" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
+      
+      <!--<disk material = "Silicone_gap" thickness = "0.1" sensitive="yes" limits="cal_limits" vis="CrystalEcalGapVis"/>-->
+
+
+      <envelope material = "kill_SiPM_left_4" thickness = "0.13" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
+      
+      <!--<envelope material = "Silicone_gap" thickness = "0.1" sensitive="yes" limits="cal_limits" vis="CrystalEcalGapVis"/>-->
+      
+  
+      <gap material = "Silicone_gap" thickness = "0.1" sensitive="yes" limits="cal_limits" vis="CrystalEcalGapVis"/>
+
+      <slice material = "E_PbWO4" thickness = "DRcrystallength" sensitive="yes" limits="cal_limits" vis="CrystalEcalLayerVis"/>
+            
+      <tube material = "Silicone_gap" thickness = "0.1" sensitive="yes" limits="cal_limits" vis="CrystalEcalGapVis"/> 
+ 
+
+      <!--<module material = "Silicone_gap" thickness = "0.1" sensitive="yes" limits="cal_limits" vis="CrystalEcalGapVis"/>-->
+            
+      <module material = "kill_SiPM_right_1" thickness = "0.13" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
+      
+
+      <!--<element material = "Silicone_gap" thickness = "0.1" sensitive="yes" limits="cal_limits" vis="CrystalEcalGapVis"/>-->
+            
+      <element material = "kill_SiPM_right_2" thickness = "0.13" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
+
+
+      <!--<frame material = "Silicone_gap" thickness = "0.1" sensitive="yes" limits="cal_limits" vis="CrystalEcalGapVis"/>-->
+            
+      <frame material = "kill_SiPM_right_3" thickness = "0.13" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
+
+
+      <!--<ladder material = "Silicone_gap" thickness = "0.1" sensitive="yes" limits="cal_limits" vis="CrystalEcalGapVis"/>-->
+            
+      <ladder material = "kill_SiPM_right_4" thickness = "0.13" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
+      
+</layer>
+    </detector>
+  </detectors>
+
+
