@@ -24,10 +24,11 @@ typedef ROOT::Math::XYZVector Direction;
 
 
 
-namespace CalVision {
+namespace CalVision
+{
 
     const int wavelengthnbin=1000;
-    //const int timebin = 2000;
+    const int timebin = 1000;
 
   /// This is the hit definition.
   /** I took here the same definition of the default Geant4Tracker class,
@@ -47,7 +48,8 @@ namespace CalVision {
    *  \version 1.0
    *  \ingroup DD4HEP_SIMULATION
    */
-  class DualCrystalCalorimeterHit : public dd4hep::sim::Geant4Calorimeter::Hit   {
+  class DualCrystalCalorimeterHit : public dd4hep::sim::Geant4Calorimeter::Hit
+{
 
   public:
     int ncerenkov,nscintillator;
@@ -57,12 +59,14 @@ namespace CalVision {
     std::array<int,wavelengthnbin>  ncerwave;
     std::array<int,wavelengthnbin> nscintwave;
     
-    /*float timemin=10;
-    float timemax=1000;
+    float timemin=0;
+    float timemax=100;
     int nbin_t=timebin;
     std::array<int,timebin> ncertime;
-    std::array<int,timebin> nscinttime;*/
+    std::array<int,timebin> nscinttime;
 
+    std::array < std::array<int, wavelengthnbin>, timebin> ncerwave_time;
+    std::array < std::array<int, wavelengthnbin>, timebin> nscintwave_time;
 
   public:
     /// Default constructor
@@ -70,12 +74,26 @@ namespace CalVision {
     /// Initializing constructor
   DualCrystalCalorimeterHit(const Position& cell_pos):dd4hep::sim::Geant4Calorimeter::Hit(cell_pos),ncerenkov(0),nscintillator(0) 
   {
-
-      for( int i=0;i<nbin;i++){
-	ncerwave[i]=0;
-	nscintwave[i]=0;
-      }
-
+   for( int i=0;i<nbin;i++)
+   {
+    ncerwave[i]=0;
+    nscintwave[i]=0;
+   }
+      
+   for( int i_t=0;i_t<nbin_t;i_t++)
+   {
+   ncertime[i_t]=0;
+   nscinttime[i_t]=0;
+   }
+      
+   for(int j=0;j<nbin_t;j++)
+   {
+    for(int k=0;k<nbin;k++)
+    {
+     ncerwave_time[j][k]=0;
+     nscintwave_time[j][k]=0;
+    }
+   }
 }
 
     /// Default destructor
