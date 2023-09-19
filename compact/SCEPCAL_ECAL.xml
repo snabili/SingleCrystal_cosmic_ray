@@ -30,6 +30,7 @@
     <vis name="CrystalEcalSensitiveVis"    alpha="0.1" r="1.0"  g="0.0"  b="0.0"  showDaughters="true" visible="true"/>
     <vis name="CrystalEcalGapVis"          alpha="0.1" r="0.0"  g="0.0"  b="1.0"  showDaughters="true" visible="true"/>
     <vis name="CrystalEcalFilterVis"       alpha="0.1" r="1.0"  g="1.0"  b="0.0"  showDaughters="true" visible="true"/>        
+    <vis name="CrystalEcalWrapVis"       alpha="0.1" r="1.0"  g="1.0"  b="0.0"  showDaughters="true" visible="true"/>        
     <vis name="Invisible" showDaughers="true" visible="false"/> 
   </display>
 
@@ -37,7 +38,7 @@
   <readouts>
   <readout name="DRCNoSegment">
       <segmentation type="NoSegmentation"/>
-      <id>slice:5,gap:2,tube:2,shape:2,module:2,chamber:2,disk:2,envelope:2,element:2,frame:2,ladder:2,layer:3,system:3</id>
+      <id>slice:5,layer:3,system:3</id>
  </readout>
 
 
