@@ -28,6 +28,7 @@ source bin/thisdd4hep.sh
 
 Example of command for interactive display:
 ddsim --steeringFile junkst2.py --compact DRJunk.xml --runType vis --part.userParticleHandler='' -G --gun.position="x y z" --gun.direction "x' y' z'" --gun.energy value*units --gun.particle=particle -O output_file
+
 And then upon receiving the command prompts,
 /control/execute vis.mac 
 
@@ -38,5 +39,7 @@ ddsim --steeringFile junkst2.py --compact DRJunk.xml --runType batch --part.user
 
 Job files to be used:
 condor-job.jdl for event generation
+
 Med_calc.jdl for median calculation, Plot_med.C for the corresponding angular dependence plots
+
 Time_calc.jdl and Wave_calc.jdl for timing and wavelength distributions respectively
