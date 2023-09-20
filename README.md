@@ -1,9 +1,12 @@
 Installation instructions:
 
+```
 source /cvmfs/sft.cern.ch/lcg/views/LCG_102b/x86_64-centos7-gcc11-opt/setup.sh\
-git clone https://github.com/AIDASoft/DD4hep.git\
+git clone https://github.com/AIDASoft/DD4hep.git
+```
+
 cd DD4hep/examples\
-git clone https://github.com/Mekhpar/SingleCrystal_cosmic_ray.git\
+git clone https://github.com/Mekhpar/SingleCrystal_cosmic_ray.git
 
 edit CMakeLists.txt (inside DD4hep/examples) and add SingleCrystal_cosmic_ray to (in this case, line 45)\
 SET(DD4HEP _EXAMPLES "AlignDet CLICSiD ClientTests Conditions DDCMS DDCodex DDDigi DDG4 DDG4_MySensDet LHeD OpticalSurfaces Persistency DDCAD SimpleDetector SingleCrystal_cosmic_ray "\
@@ -14,7 +17,7 @@ CACHE STRING "List of DD4hep Examples to build")
 cd ..\
 mkdir build\
 mkdir install\
-cd build/\
+cd build\
 cmake -DDD4HEP_USE_GEANT4=ON -DBoost_NO_BOOST_CMAKE=ON -DDD4HEP_USE_LCIO=ON -DBUILD_TESTING=ON -DROOT_DIR=$ROOTSYS -D CMAKE_BUILD_TYPE=Release -DDD4HEP_BUILD_EXAMPLES=ON ..\
 make -j4\
 make install\
