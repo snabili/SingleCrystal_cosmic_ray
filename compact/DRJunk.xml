@@ -744,7 +744,7 @@
     <opticalsurface name="/world/DRCrystal#tyvekSurface" finish="etchedtyvekair" model="LUT" type="dielectric_LUT" value="1.0">
     </opticalsurface>  
 
-    <opticalsurface name="/world/DRCrystal#dielectricSurface" finish="polished" model="unified" type="dielectric_metal">
+    <opticalsurface name="/world/DRCrystal#dielectricSurface" finish="ground" model="unified" type="dielectric_metal">
     <property name="SPECULARLOBECONSTANT"     ref="Spec_lobe"/>-->
     <property name="REFLECTIVITY"     ref="Ref_gndmet"/>      
     </opticalsurface>
