@@ -177,66 +177,6 @@ void Timing_large_dist(int angle/*int num_evtsmax, const char* inputfilename*/) 
    }   
   }
 
-  C_S_SiPM.open("C_S_total_SiPMs_1207_PbWO4.csv");
-  //num_evt=0;
-  int icount = 0;
-  int num_evt_loop = 100;
-  int i_file_work = 0;
-  int event_nos;//Chronological event number considering all the files
-
-  //float Gen_crys=0, Ch_l_0=0., Ch_l_1=0., Ch_l_2=0., Ch_l_3=0., Ch_r_4=0., Ch_r_5=0., Ch_r_6=0., Ch_r_7=0., C_Gen_crys=0., S_Gen_crys=0., E_crys=0.;
-  std::vector<float> *Gen_crys = new vector<float>;
-  std::vector<float> *Ch[8];
-  for(int i=0;i<8;i++)
-  {
-   Ch[i]=new vector<float>;
-  }
-
-  //TFile *file_evt = TFile::Open(Form("Event_files/1207/Output_Root_Files/Event_%i_1207_time.root",angle),"recreate");
-  TFile *file_evt = TFile::Open(Form("Event_files/1207/Output_Root_Files/Event_%i_1207_time_test.root",angle),"recreate");
-  TTree *Timing_channel = new TTree("Timing_channel","Eventwise values in crystal and SiPM channels with SiPM QE");
-  int i_file_max = 80;
-  Timing_channel->Branch("Event_Numbers", &(event_nos),num_evt_loop*i_file_max); //Number of entries should be the max possible, i.e. 8000
-  Timing_channel->Branch("Gen_crys", &(Gen_crys),num_evt_loop*i_file_max);
-  for(int i=0;i<8;i++)
-  {
-   Timing_channel->Branch(Form("Ch_%i",i),&Ch[i],num_evt_loop*i_file_max);
-  }
-
-  //TFile* f = TFile::Open(Form("Root_files/Protons/PbWO4/out_0705_%i.root",angle));
-  TFile* f = TFile::Open(Form("Root_files/Protons/PbWO4/1207/out_1207_0_%i.root",angle));
-  //TFile* f = TFile::Open(Form("Root_files/Protons/PbWO4/out_0627_1000_%i.root",angle)); //1000 events for PbWO4
-  //TFile* f = TFile::Open(Form("Root_files/Protons/PbWO4/out_0611_%i.root",angle)); //Actually the ones for PbF2 crystal
-  //TFile* f = TFile::Open(Form("Root_files/Protons/PbF2/out_0626_1000_%i.root",angle)); //Actually the ones for PbF2 crystal
-  //TFile* f = TFile::Open(Form("Root_files/PbWO4/out_%i_0330.root",angle)); //Old files possibly having muon data
-  TTree* t = (TTree*)f->Get("EVENT;1");
-  t->Print();
-
-  //hcEcalE0 = new TH1F("hcEcalE0","energy chan 0",10000,0.,100000); //Is this in MeV?
-  
-  
-  // loop over events
-  TBranch* b_mc = t->GetBranch("MCParticles");
-  TBranch* b_ecal = t->GetBranch("DRCNoSegment");
-  int ihaha = b_mc->GetEntries();
-  //num_evt= std::min(ihaha,num_evtsmax);
-  //num_evt= 100;
-  num_evt= 5;
-  std::cout<<" doing "<<b_mc->GetName()<<std::endl;
-  std::cout<<"num_evt gen loop is "<<num_evt<<std::endl;
-  
-
-std::cout<<std::endl;
-  
-  
-  //if(num_evt>0) {
-  
-    // find branches
-    GenParts* gens = new GenParts();
-    b_mc->SetAddress(&gens);
-    CalHits* ecalhits = new CalHits();
-    b_ecal->SetAddress(&ecalhits);
-
       float esum_avg=0.;
       float ncercutchan_avg[nchan]; //Cerenkov Photons above cutoff
       float nscintcutchan_avg[nchan]; //Scintillation photons below cutoff
@@ -276,6 +216,83 @@ std::cout<<std::endl;
       std::vector<int> ncerwave_dummy_avg[nchan];
       std::vector<int> nscintwave_dummy_avg[nchan];    
 
+  C_S_SiPM.open("C_S_total_SiPMs_1207_PbWO4.csv");
+  num_evt=0;
+  int icount = 0;
+  int num_evt_loop = 100;
+  //int num_evt_loop = 5;
+  int i_file_work = 0;
+  int event_nos;//Chronological event number considering all the files
+
+  //float Gen_crys=0, Ch_l_0=0., Ch_l_1=0., Ch_l_2=0., Ch_l_3=0., Ch_r_4=0., Ch_r_5=0., Ch_r_6=0., Ch_r_7=0., C_Gen_crys=0., S_Gen_crys=0., E_crys=0.;
+  std::vector<float> *Gen_crys = new vector<float>;
+  std::vector<float> *Ch[8];
+  for(int i=0;i<8;i++)
+  {
+   Ch[i]=new vector<float>;
+  }
+
+  //TFile *file_evt = TFile::Open(Form("Event_files/1207/Output_Root_Files/Event_%i_1207_time.root",angle),"recreate");
+  TFile *file_evt = TFile::Open(Form("Event_files/1207/Output_Root_Files/Event_%i_1207_time_new.root",angle),"recreate");
+  TTree *Timing_channel = new TTree("Timing_channel","Eventwise values in crystal and SiPM channels with SiPM QE");
+  int i_file_max = 80;
+  //int i_file_max = 4;
+
+  Timing_channel->Branch("Event_Numbers", &(event_nos),num_evt_loop*i_file_max); //Number of entries should be the max possible, i.e. 8000
+  Timing_channel->Branch("Gen_crys", &(Gen_crys),num_evt_loop*i_file_max);
+  for(int i=0;i<8;i++)
+  {
+   Timing_channel->Branch(Form("Ch_%i",i),&Ch[i],num_evt_loop*i_file_max);
+  }
+
+  for(int i_file=0;i_file<i_file_max;i_file++)
+  {
+   std::stringstream stream;
+  stream << i_file;
+  std::string i_file_string = stream.str();
+
+  string file_path = "Root_files/Protons/PbWO4/1207/out_1207_"+i_file_string+"_%i.root";
+   if(!gSystem->AccessPathName(Form(file_path.c_str(),angle))) //Check for whether File exists
+  {
+  //TFile* f = TFile::Open(Form("Root_files/Protons/PbWO4/1207/out_1207_10_%i.root",angle));
+  std::cout << Form(file_path.c_str(),angle) << std::endl;
+  TFile f_dummy(Form(file_path.c_str(),angle));
+  std::cout << "Whether the file is a zombie " << f_dummy.IsZombie() << std::endl;
+  if(!f_dummy.IsZombie()) //Check whether file is a zombie
+  {
+  TFile* f = TFile::Open(Form(file_path.c_str(),angle));
+  i_file_work+=1;//Only the files that are not defunct
+  
+  //TFile* f = TFile::Open(Form((inputfile+"/out_1122_e_4G_%i.root").c_str(),angle));
+  //TFile* f = TFile::Open(Form("out_1122_%i_e_1.root",angle));
+  TTree* t = (TTree*)f->Get("EVENT;1");
+  t->Print();
+
+  //hcEcalE0 = new TH1F("hcEcalE0","energy chan 0",10000,0.,100000); //Is this in MeV?
+  
+  
+  // loop over events
+  TBranch* b_mc = t->GetBranch("MCParticles");
+  TBranch* b_ecal = t->GetBranch("DRCNoSegment");
+  int ihaha = b_mc->GetEntries();
+  //num_evt= std::min(ihaha,num_evtsmax);
+  num_evt+= 100;
+  //num_evt+= 5;
+  std::cout<<" doing "<<b_mc->GetName()<<std::endl;
+  std::cout<<"num_evt gen loop is "<<num_evt<<std::endl;
+  
+
+std::cout<<std::endl;
+  
+  
+  //if(num_evt>0) {
+  
+    // find branches
+    GenParts* gens = new GenParts();
+    b_mc->SetAddress(&gens);
+    CalHits* ecalhits = new CalHits();
+    b_ecal->SetAddress(&ecalhits);
+
 
     int SCEPRINT2=10;
     int ievt_min = 0;
@@ -283,8 +300,9 @@ std::cout<<std::endl;
     C_gen.open("Generated_Cerenkov_photons.txt"); //Opening this before the event loop
     S_gen.open("Generated_Scintillation_photons.txt"); //Opening this before the event loop
     
-    for(int ievt=0;ievt<num_evt; ++ievt) 
+    for(int ievt=0;ievt<num_evt_loop; ++ievt) 
     {
+      event_nos = (i_file_work-1)*num_evt_loop + ievt;
       //std::cout<<"event number is "<<ievt<<std::endl;
       //gen particles
       nbyte = b_mc->GetEntry(ievt);
@@ -661,8 +679,8 @@ std::cout<<std::endl;
        }
         for(int k_w=0; k_w<ncerwave_timechan[k].at(k_t).size(); k_w++) 
         {
-        ncerwave_timecutchan[k].at(k_t).at(k_w) += ncerwave_timechan[k].at(k_t).at(k_w)*filter[k].at(k_w)*QE[k].at(k_w);
-        nscintwave_timecutchan[k].at(k_t).at(k_w) += nscintwave_timechan[k].at(k_t).at(k_w)*filter[k].at(k_w)*QE[k].at(k_w);
+        ncerwave_timecutchan[k].at(k_t).at(k_w) += ncerwave_timechan[k].at(k_t).at(k_w)/**filter[k].at(k_w)*/*QE[k].at(k_w);
+        nscintwave_timecutchan[k].at(k_t).at(k_w) += nscintwave_timechan[k].at(k_t).at(k_w)/**filter[k].at(k_w)*/*QE[k].at(k_w);
         }
 
        if(icount == 1)
@@ -752,6 +770,15 @@ std::cout<<std::endl;
     
     C_gen.close();
     S_gen.close();    
+     f->Close();
+    }
+    }
+    }
+     
+    file_evt->cd();
+    Timing_channel->Print();
+    Timing_channel->Write();
+
     std::cout << "Number of non zero events: " << icount << std::endl;
     std::cout << "Angle value: " << angle << std::endl;
     
@@ -820,7 +847,7 @@ std::cout<<std::endl;
      }
     }
       C_S_SiPM << endl; 
-      f->Close();
+     
       
         
     //for(int j=0;j<2;j++) //For toggling through the different graphs
