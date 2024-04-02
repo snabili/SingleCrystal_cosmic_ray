@@ -8,9 +8,13 @@
     <constant name="DRcrystalwidth" value="2.5*cm"/>
     <constant name="DRcrystallength" value="6.*cm"/>
     <constant name="DRgreasewidth" value="0.1*cm"/>
-    <constant name="DRSiPMwidth" value="0.13*cm"/>
-    <constant name="DRSiPMspacing" value="0.425*cm"/>
-    <constant name="DRSiPMside" value="0.6*cm"/>
-    <constant name="DRfilterwidth" value="0.25*cm"/>
+    <!--<constant name="DRSiPMwidth" value="0.12*cm"/>-->
+
+    <constant name="DRSiPMwidth_in" value="0.02*cm"/>
+    <constant name="DRSiPMwidth_out" value="0.1*cm"/>
+    
+    <constant name="DRResWinwidth" value="0.015*cm"/>
+    <!--<constant name="DRResWinwidth" value="0.1*cm"/>-->  <!--Magnified thickness fo visibility in display-->
+    <constant name="DRSigma_Alpha" value="60.0*deg"/>
     <constant name="EcalBarrel_ID" value="1"/>
 </define>
