@@ -5,17 +5,12 @@
     <constant name="world_z" value="world_side"/>
 
 
-    
- 
-
     <constant name="DRcrystalwidth" value="2.5*cm"/>
     <constant name="DRcrystallength" value="6.*cm"/>
-
     <constant name="DRgreasewidth" value="0.1*cm"/>
     <constant name="DRSiPMwidth" value="0.13*cm"/>
-    
+    <constant name="DRSiPMspacing" value="0.425*cm"/>
+    <constant name="DRSiPMside" value="0.6*cm"/>
+    <constant name="DRfilterwidth" value="0.25*cm"/>
     <constant name="EcalBarrel_ID" value="1"/>
-
-    
-
 </define>
