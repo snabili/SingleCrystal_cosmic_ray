@@ -24,7 +24,7 @@
 
  <comment>Electromagnetic Calorimeter Barrel</comment>
 
-<dimensions width="DRcrystalwidth" z_length="DRcrystallength" gap="DRgreasewidth" depth="DRSiPMwidth"/>
+<dimensions width="DRcrystalwidth" z_length="DRcrystallength" gap="DRgreasewidth" depth="DRSiPMwidth_in" end="DRSiPMwidth_out" r_size="DRResWinwidth" theta="DRSigma_Alpha"/>
 
 <!--  a tower may have several different patterns that repeat.
 for example, there may be 10 layers with one thickness of Pb and scint and 20 with another set of thicknesses.
@@ -33,41 +33,27 @@ within a layer is a slice os the Pb and scint are slices
 the assembled tower is a Stave 
 -->
 
- <staves vis="Invisible"/>
-<layer repeat="1" vis="Invisible">
-      <shape material = "kill_SiPM_left_1" thickness = "DRSiPMwidth" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
-      
-      <chamber material = "kill_SiPM_left_2" thickness = "DRSiPMwidth" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
+<structure>
+      <shape material = "kill_SiPM_left_1" thickness = "DRSiPMwidth_in" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
+      <chamber material = "kill_SiPM_left_2" thickness = "DRSiPMwidth_in" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
+      <disk material = "kill_SiPM_left_3" thickness = "DRSiPMwidth_in" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
+      <envelope material = "kill_SiPM_left_4" thickness = "DRSiPMwidth_in" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
 
-      <disk material = "kill_SiPM_left_3" thickness = "DRSiPMwidth" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
-
-      <envelope material = "kill_SiPM_left_4" thickness = "DRSiPMwidth" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
-
+      <eval material = "Resin_Window" thickness = "DRResWinwidth" sensitive="yes" limits="cal_limits" vis="CrystalEcalResinVis"/>
 
       <gap material = "Silicone_gap" thickness = "DRgreasewidth" sensitive="yes" limits="cal_limits" vis="CrystalEcalGapVis"/>
-
       <slice material = "PbF2" thickness = "DRcrystallength" sensitive="yes" limits="cal_limits" vis="CrystalEcalLayerVis"/>
-
-      <tube material = "Silicone_gap" thickness = "DRgreasewidth" sensitive="yes" limits="cal_limits" vis="CrystalEcalGapVis"/> 
+      <tube material = "Silicone_gap" thickness = "DRgreasewidth" sensitive="yes" limits="cal_limits" vis="CrystalEcalGapVis"/>
  
-           
-      <module material = "kill_SiPM_right_1" thickness = "DRSiPMwidth" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
-            
-      <element material = "kill_SiPM_right_2" thickness = "DRSiPMwidth" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
-            
-      <frame material = "kill_SiPM_right_3" thickness = "DRSiPMwidth" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
-            
-      <ladder material = "kill_SiPM_right_4" thickness = "DRSiPMwidth" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
-
-      <!--y wrapper--> <!--same as for x wrapper-->
-      <!--<beampipe material = "Teflon_wrap" thickness = "0.1" sensitive="yes" limits="cal_limits" vis="CrystalEcalWrapVis"/>
-
-      <beampipe material = "Teflon_wrap" thickness = "0.1" sensitive="yes" limits="cal_limits" vis="CrystalEcalWrapVis"/>-->
+      <module material = "kill_SiPM_right_1" thickness = "DRSiPMwidth_in" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
+      <element material = "kill_SiPM_right_2" thickness = "DRSiPMwidth_in" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
+      <frame material = "kill_SiPM_right_3" thickness = "DRSiPMwidth_in" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
+      <ladder material = "kill_SiPM_right_4" thickness = "DRSiPMwidth_in" sensitive="yes" limits="cal_limits" vis="CrystalEcalSensitiveVis"/>
 
       <!--Subtraction solid-->
       <beampipe material = "Teflon_wrap" thickness = "DRcrystallength-0.002" sensitive="yes" limits="cal_limits" vis="CrystalEcalWrapVis"/>
-      
-</layer>
+</structure>
+
     </detector>
   </detectors>
 
