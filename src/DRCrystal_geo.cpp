@@ -191,6 +191,8 @@ static Ref_t create_detector(Detector& description, xml_h e, SensitiveDetector s
   float y[4] = {0.425,0.425,-0.425,-0.425};
 
   xml_comp_t sipm_left[4] = {fX_sipm_l1,fX_sipm_l2,fX_sipm_l3,fX_sipm_l4};
+  xml_comp_t resin_left[4] = {fX_resin_l1,fX_resin_l2,fX_resin_l3,fX_resin_l4};
+  Position a_pos_shift = {0.,0.,0.};
   //Making left sipms
   for(int i=0;i<4;i++)
   {
@@ -207,12 +209,32 @@ static Ref_t create_detector(Detector& description, xml_h e, SensitiveDetector s
   sipml_phv.addPhysVolID("slice",i+4);
   sipml_det.setPlacement(sipml_phv);
   sipml_phv.addPhysVolID("system",det_id);
+
+  a_pos_shift = {0.,0.,-Resin_wd};
+  std::cout<<"making resin left "+ std::to_string(i+1) <<std::endl;
+  dd4hep::Box r_box_l_out(sq_out/2,sq_out/2,Resin_wd+SiPM_wd_in);
+
+  dd4hep::Solid resin_l = SubtractionSolid(r_box_l_out,s_box_l,a_pos_shift);
+
+  dd4hep::Volume s_vol_resinl("resinl",resin_l,description.material(resin_left[i].materialStr()));
+  s_vol_resinl.setAttributes(description,resin_left[i].regionStr(),resin_left[i].limitsStr(),resin_left[i].visStr());
+  if ( resin_left[i].isSensitive() ) {
+    s_vol_resinl.setSensitiveDetector(sens);
+  }
+  DetElement resinl_det("resinl",det_id);
+  a_pos={x[i],y[i],-hzmax-2*Gr_wd-Resin_wd-SiPM_wd_in};
+  PlacedVolume  resinl_phv   = envelope.placeVolume(s_vol_resinl,a_pos);
+  resinl_phv.addPhysVolID("slice",i+8);
+  resinl_det.setPlacement(resinl_phv);
+  resinl_phv.addPhysVolID("system",det_id);
+
   }
 
 
 
 
   xml_comp_t sipm_right[4] = {fX_sipm_r1,fX_sipm_r2,fX_sipm_r3,fX_sipm_r4};
+  xml_comp_t resin_right[4] = {fX_resin_r1,fX_resin_r2,fX_resin_r3,fX_resin_r4};  
   //Making right sipms
   for(int i=0;i<4;i++)
   {    
@@ -226,16 +248,35 @@ static Ref_t create_detector(Detector& description, xml_h e, SensitiveDetector s
   DetElement sipmr_det("sipmr",det_id);
   a_pos={x[i],y[i],hzmax+2*(Gr_wd+Resin_wd)+SiPM_wd_in};
   PlacedVolume  sipmr_phv   = envelope.placeVolume(s_vol_sipmr,a_pos);
-  sipmr_phv.addPhysVolID("slice",i+8);
+  sipmr_phv.addPhysVolID("slice",i+12);
   sipmr_det.setPlacement(sipmr_phv);
   sipmr_phv.addPhysVolID("system",det_id);
+
+  a_pos_shift = {0.,0.,Resin_wd};
+  std::cout<<"making resin right "+ std::to_string(i+1) <<std::endl;
+  dd4hep::Box r_box_r_out(sq_out/2,sq_out/2,Resin_wd+SiPM_wd_in);
+
+  dd4hep::Solid resin_r = SubtractionSolid(r_box_r_out,s_box_r,a_pos_shift);
+
+  dd4hep::Volume s_vol_resinr("resinr",resin_r,description.material(resin_right[i].materialStr()));
+  s_vol_resinr.setAttributes(description,resin_right[i].regionStr(),resin_right[i].limitsStr(),resin_right[i].visStr());
+  if ( resin_right[i].isSensitive() ) {
+    s_vol_resinr.setSensitiveDetector(sens);
+  }
+  DetElement resinr_det("resinr",det_id);
+  a_pos={x[i],y[i],hzmax+2*Gr_wd+Resin_wd+SiPM_wd_in};
+  PlacedVolume  resinr_phv   = envelope.placeVolume(s_vol_resinr,a_pos);
+  resinr_phv.addPhysVolID("slice",i+16);
+  resinr_det.setPlacement(resinr_phv);
+  resinr_phv.addPhysVolID("system",det_id);
+
   }
 
 
 
-
-  xml_comp_t resin_left[4] = {fX_resin_l1,fX_resin_l2,fX_resin_l3,fX_resin_l4};
+  
   //Making left resins
+  /*
   for(int i=0;i<4;i++)
   {    
   std::cout<<"making resin left "+ std::to_string(i+1) <<std::endl;
@@ -252,12 +293,12 @@ static Ref_t create_detector(Detector& description, xml_h e, SensitiveDetector s
   resinl_det.setPlacement(resinl_phv);
   resinl_phv.addPhysVolID("system",det_id);
   }
+  */
 
 
-
-
-  xml_comp_t resin_right[4] = {fX_resin_r1,fX_resin_r2,fX_resin_r3,fX_resin_r4};
+  
   //Making right resins
+  /*
   for(int i=0;i<4;i++)
   {
   std::cout<<"making resin right "+ std::to_string(i+1) <<std::endl;
@@ -274,7 +315,7 @@ static Ref_t create_detector(Detector& description, xml_h e, SensitiveDetector s
   resinr_det.setPlacement(resinr_phv);
   resinr_phv.addPhysVolID("system",det_id);
   }
-
+  */
 
 
 
