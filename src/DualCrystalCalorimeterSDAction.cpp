@@ -16,7 +16,7 @@
 #include "DDG4/Geant4SensDetAction.inl"
 #include "DDG4/Factories.h"
 #include <cmath>
-
+#include "DDG4/Geant4Random.h"
 
 
 
@@ -35,9 +35,19 @@ namespace CalVision {
 
   int SCECOUNT=0;
   double Cl_wd = 12.5; //half the crystal width in mm
+
   double Cl_Lng = 30; //half the crystal length in mm
+  //double Cl_Lng = 25; //half the crystal length in mm
   double Gr_wd = 1.0; //Thickness of grease in mm on either side
-  double SiPM_wd = 1.3; //Thickness of killMedia in mm on either side
+  //double SiPM_wd = 1.3; //Thickness of killMedia in mm on either side
+  //double SiPM_wd = 1.2; //Thickness of killMedia in mm on either side (1.35-0.15 mm)
+
+  double SiPM_wd_in = 0.2; //Thickness of killMedia in mm on either side, surrounded by resin window
+  double SiPM_wd_out = 1.0; //Thickness of killMedia in mm on either side, 'outside' resin window
+
+  double Res_wd = 0.15; //Thickness of Silicone (or epoxy?) resin window in mm on either side (for each SiPM)
+
+  //double Res_wd = 1.0; //Magnified Resin thickness for visibility in display
 
   class DualCrystalCalorimeterSD {
   public:
@@ -75,7 +85,7 @@ namespace dd4hep {
     template <> bool Geant4SensitiveAction<DualCrystalCalorimeterSD>::process(const G4Step* step,G4TouchableHistory* /*hist*/ ) {
 
 
-      bool SCEPRINT=(SCECOUNT<10000);
+      bool SCEPRINT=(SCECOUNT</*10000*/5);
       //if(SCEPRINT) std::cout<<"scecount is "<<SCECOUNT<<" print is "<<SCEPRINT<<std::endl;
 
 
@@ -156,8 +166,7 @@ namespace dd4hep {
       if(SCEPRINT) std::cout<< (track->GetDefinition())->GetParticleName()<<std::endl;
 
       //photons
-      if( track->GetDefinition() == G4OpticalPhoton::OpticalPhotonDefinition() )  
-      {
+      if( track->GetDefinition() == G4OpticalPhoton::OpticalPhotonDefinition() )  {
 	if(SCEPRINT) std::cout<<"     in volume ID "<<cell<<std::endl;
 
 	SCECOUNT+=1;
@@ -181,27 +190,40 @@ namespace dd4hep {
   int phstep = track->GetCurrentStepNumber();
 	
 
-  if ( track->GetCreatorProcess()->G4VProcess::GetProcessName() == "CerenkovPhys")
+	if ( track->GetCreatorProcess()->G4VProcess::GetProcessName() == "CerenkovPhys")
   {
-   if(SCEPRINT) std::cout<<" found cerenkov photon"<<std::endl;
-   std::string amedia = ((track->GetMaterial())->GetName());
-   if(amedia.find("kill")!=std::string::npos)     
+	  if(SCEPRINT) std::cout<<" found cerenkov photon"<<std::endl;
+	  std::string amedia = ((track->GetMaterial())->GetName());
+    if(amedia.find("kill")!=std::string::npos)     
+	  //if(((track->GetMaterial())->GetName())=="killMedia") 
 	    { 
        if(amedia.find("kill_SiPM_left")!=std::string::npos)  	     //Left SiPMs only
        { 
        double z_init = fabs(step->GetPreStepPoint()->GetPosition().z());
-        if(z_init < (Cl_Lng+Gr_wd+0.00001) && z_init > (Cl_Lng+Gr_wd-0.00001)) //Hits only for top surface of the SiPMs
+        if(z_init < (Cl_Lng+Gr_wd+Res_wd+0.00001) && z_init > (Cl_Lng+Gr_wd+Res_wd-0.00001)) //Hits only for top surface of the SiPMs
        {
         if(SCEPRINT) 
         {
+         //std::cout<< "Reached the left SiPM MMP" << std::endl;
          std::cout<<"killing photon"<<std::endl;
         }
+        //std::cout<<"Initial z coordinate " << step->GetPreStepPoint()->GetPosition().z() << std::endl;
+        //if(phstep>1)// don't count photons created in kill media i.e. with step number 1 because they are unphysical
         if(phstep>1)// don't count photons created in kill media i.e. with step number 1 because they are unphysical
         {
 	       hit->ncerenkov+=1;
 	       if(ibin>-1&&ibin<hit->nbin) ((hit->ncerwave).at(ibin))+=1;
-         if(ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->ncertime).at(ibin_t))+=1; //Time of arrival for Cerenkov
+         if(ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->ncertime).at(ibin_t))+=1; //Time of arrival at killMedia for Cerenkov
          if(ibin>-1&&ibin<hit->nbin&&ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->ncerwave_time).at(ibin_t).at(ibin))+=1; //2 D, both wavelength and arrival time
+
+         if(phstep==3) //1- Crystal, 2 - silicone, 3 - kill Media, no bounce, no air
+         {
+          hit->ncer_1+=1;
+         }
+         else if(phstep>3)
+         {
+          hit->ncer_bounce+=1;
+         }
         }
        }
 	      track->SetTrackStatus(fStopAndKill); //kill ALL killMedia photons after the first step, regardless of whether they were created there or not (to avoid overcounting)
@@ -209,7 +231,7 @@ namespace dd4hep {
 
        else if(amedia.find("kill_SiPM_right")!=std::string::npos)  	     //Right SiPMs only
        { 
-       if(step->GetPreStepPoint()->GetPosition().z() == (Cl_Lng+Gr_wd)) //Hits only for top surface of the SiPMs
+       if(step->GetPreStepPoint()->GetPosition().z() == (Cl_Lng+Gr_wd+Res_wd)) //Hits only for top surface of the SiPMs
        {
         if(SCEPRINT) std::cout<<"killing photon"<<std::endl;
         //if(phstep>1)// don't count photons created in kill media i.e. with step number 1 because they are unphysical
@@ -217,8 +239,17 @@ namespace dd4hep {
         {
 	       hit->ncerenkov+=1;
 	       if(ibin>-1&&ibin<hit->nbin) ((hit->ncerwave).at(ibin))+=1;
-         if(ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->ncertime).at(ibin_t))+=1; //Time of arrival for Cerenkov
+         if(ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->ncertime).at(ibin_t))+=1; //Time of arrival at killMedia for Cerenkov
          if(ibin>-1&&ibin<hit->nbin&&ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->ncerwave_time).at(ibin_t).at(ibin))+=1; //2 D, both wavelength and arrival time
+         if(phstep==3) //1- Crystal, 2 - silicone, 3 - kill Media, no bounce, no air
+         {
+          hit->ncer_1+=1;
+         }
+         else if(phstep>3)
+         {
+          hit->ncer_bounce+=1;
+         }
+
         }
         }
 	      track->SetTrackStatus(fStopAndKill); //kill ALL killMedia photons after the first step, regardless of whether they were created there or not (to avoid overcounting)
@@ -232,86 +263,119 @@ namespace dd4hep {
         {
 	       hit->ncerenkov+=1;
 	       if(ibin>-1&&ibin<hit->nbin) ((hit->ncerwave).at(ibin))+=1;
-         if(ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->ncertime).at(ibin_t))+=1; //Time of arrival for Cerenkov
+         if(ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->ncertime).at(ibin_t))+=1; //Time of arrival at killMedia for Cerenkov
          if(ibin>-1&&ibin<hit->nbin&&ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->ncerwave_time).at(ibin_t).at(ibin))+=1; //2 D, both wavelength and arrival time
+         if(phstep==3) //1- Crystal, 2 - silicone, 3 - kill Media, no bounce, no air
+         {
+          hit->ncer_1+=1;
+         }
+         else if(phstep>3)
+         {
+          hit->ncer_bounce+=1;
+         }
+
         }
 	      track->SetTrackStatus(fStopAndKill); //kill ALL killMedia photons after the first step, regardless of whether they were created there or not (to avoid overcounting)
        }
 
-     }	  
-    else 
-    {
-     if( (phstep==1)  )
-     {
-      hit->ncerenkov+=1;
-      if(ibin>-1&&ibin<hit->nbin) ((hit->ncerwave).at(ibin))+=1;
-      if(ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->ncertime).at(ibin_t))+=1; //Time of production (mainly in crystal) for Cerenkov
-      if(ibin>-1&&ibin<hit->nbin&&ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->ncerwave_time).at(ibin_t).at(ibin))+=1; //2 D, both wavelength and arrival time (mainly in crystal)
      }
-    }
-      
-    //if(((track->GetMaterial())->GetName())=="Air" && step->GetPreStepPoint()->GetPosition() != step->GetPostStepPoint()->GetPosition())
-    if(amedia.find("Air")!=std::string::npos && (fabs(step->GetPreStepPoint()->GetPosition().x() - step->GetPostStepPoint()->GetPosition().x())>0.1 || fabs(step->GetPreStepPoint()->GetPosition().y() - step->GetPostStepPoint()->GetPosition().y())>0.1 || fabs(step->GetPreStepPoint()->GetPosition().z() - step->GetPostStepPoint()->GetPosition().z())>0.1))
-    {
-     hit->ncerenkov+=1;
-     //track->SetTrackStatus(fStopAndKill); //So all the photons go to air including the ones that suffer at least one TIR and are counted in Air and aborted
-     //Only count, no abort
-     //std::cout<<"escaped cerenkov photon"<<std::endl;
-    }
+	  
+    else {
+	    //if( (track->GetParentID()==1)&&(track->GetCurrentStepNumber()==1)  ) hit->ncerenkov+=1;
+         	    if( (phstep==1)  )
+              {
+               hit->ncerenkov+=1;
+               if(ibin>-1&&ibin<hit->nbin) ((hit->ncerwave).at(ibin))+=1;
+               if(ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->ncertime).at(ibin_t))+=1; //Time of production (mainly in crystal) for Cerenkov
+               if(ibin>-1&&ibin<hit->nbin&&ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->ncerwave_time).at(ibin_t).at(ibin))+=1; //2 D, both wavelength and arrival time
+               /*
+               double dialCher= 0.01; //Much bigger factor than in the Dual test beam code
 
-    if(amedia.find("Air")!=std::string::npos)
-    {
-     if(SCEPRINT)
-     {
-       std::cout << "z position in Air " << step->GetPostStepPoint()->GetPosition().z() << std::endl;
-       std::cout << "z boundary " << Cl_Lng+Gr_wd+SiPM_wd+0.01 << std::endl;
+       	       Geant4Event&  evt = context()->event();
+               dd4hep::sim::Geant4Random& rnd = evt.random();
+	             if(rnd.rndm()>dialCher)
+               {
+                track->SetTrackStatus(fStopAndKill);
+                if(SCEPRINT){std::cout << "Killed photon at production" << std::endl;}
+               }
+               */
+              }
+	  }
 
-       std::cout << " x coordinate in Air " << step->GetPreStepPoint()->GetPosition().x() << std::endl;
-      }
-     if(step->GetPostStepPoint()->GetPosition().z() > (Cl_Lng+Gr_wd+SiPM_wd+0.005) || step->GetPostStepPoint()->GetPosition().z() < -(Cl_Lng+Gr_wd+SiPM_wd+0.005)) //Reflection at square face
-     {
-      //std::cout << "False border reflection" <<std::endl;
-      track->SetTrackStatus(fStopAndKill);
-      }  
-     }
+    //if(phstep>3){track->SetTrackStatus(fStopAndKill);} //Only for reduction of spew with OPTICALPHOTON as gun, requiring multiple photons in one display
+           //if(((track->GetMaterial())->GetName())=="Air" && step->GetPreStepPoint()->GetPosition() != step->GetPostStepPoint()->GetPosition())
+          if(amedia.find("Air")!=std::string::npos && (fabs(step->GetPreStepPoint()->GetPosition().x() - step->GetPostStepPoint()->GetPosition().x())>0.1 || fabs(step->GetPreStepPoint()->GetPosition().y() - step->GetPostStepPoint()->GetPosition().y())>0.1 || fabs(step->GetPreStepPoint()->GetPosition().z() - step->GetPostStepPoint()->GetPosition().z())>0.1))
+          {
+           hit->ncerenkov+=1;
+           //track->SetTrackStatus(fStopAndKill); //So all the photons go to air including the ones that suffer at least one TIR and are counted in Air and aborted
+           //Only count, no abort
+           //std::cout<<"escaped cerenkov photon"<<std::endl;
+          }
+          ///*
+          if(amedia.find("Air")!=std::string::npos)
+          {
+           if(SCEPRINT)
+           {
+            std::cout << "z position in Air " << step->GetPostStepPoint()->GetPosition().z() << std::endl;
+            //std::cout << "z boundary " << Cl_Lng+Gr_wd+Res_wd+SiPM_wd_in+SiPM_wd_out+0.01 << std::endl;
+            std::cout << "z boundary " << Cl_Lng+Gr_wd+Res_wd+SiPM_wd_in+SiPM_wd_out << std::endl;
+            std::cout << " x coordinate in Air " << step->GetPreStepPoint()->GetPosition().x() << std::endl;
+           }
+          if(step->GetPostStepPoint()->GetPosition().z() > (Cl_Lng+Gr_wd+Res_wd+SiPM_wd_in+SiPM_wd_out-0.005) || step->GetPostStepPoint()->GetPosition().z() < -(Cl_Lng+Gr_wd+Res_wd+SiPM_wd_in+SiPM_wd_out-0.005)) //Reflection at square face
+          {
+           //std::cout << "False border reflection" <<std::endl;
+           track->SetTrackStatus(fStopAndKill);
+          }  
+          }
 
           
-     if(amedia.find("Air")!=std::string::npos)
-     {
-      //Reflection at rectangular face but not at the crystal face (outside z = 30 mm)
-      if(step->GetPostStepPoint()->GetPosition().x() > (Cl_wd+0.005) || step->GetPostStepPoint()->GetPosition().x() < -(Cl_wd+0.005) || step->GetPostStepPoint()->GetPosition().y() > (Cl_wd+0.005) || step->GetPostStepPoint()->GetPosition().y() < -(Cl_wd+0.005))
-      {
-       //std::cout << "Potential False reflection at rectangular face" <<std::endl;    
-       //std::cout << step->GetPreStepPoint()->GetPosition().z() <<std::endl;
-       if((step->GetPreStepPoint()->GetPosition().z()<=(Cl_Lng+Gr_wd+SiPM_wd) && step->GetPreStepPoint()->GetPosition().z()>Cl_Lng)||(step->GetPreStepPoint()->GetPosition().z()<-Cl_Lng && step->GetPreStepPoint()->GetPosition().z()>=-(Cl_Lng+Gr_wd+SiPM_wd)))
-       {
-        //std::cout << "False border reflection at rectangular face" <<std::endl;
-        track->SetTrackStatus(fStopAndKill);
+          if(amedia.find("Air")!=std::string::npos)
+          {
+           //Reflection at rectangular face but not at the crystal face (outside z = 30 mm)
+          if(step->GetPostStepPoint()->GetPosition().x() > (Cl_wd-0.005) || step->GetPostStepPoint()->GetPosition().x() < -(Cl_wd-0.005) || step->GetPostStepPoint()->GetPosition().y() > (Cl_wd-0.005) || step->GetPostStepPoint()->GetPosition().y() < -(Cl_wd-0.005))
+          {
+           //std::cout << "Potential False reflection at rectangular face" <<std::endl;    
+           //std::cout << step->GetPreStepPoint()->GetPosition().z() <<std::endl;
+           if((step->GetPreStepPoint()->GetPosition().z()<=(Cl_Lng+Gr_wd+Res_wd+SiPM_wd_in+SiPM_wd_out) && step->GetPreStepPoint()->GetPosition().z()>Cl_Lng)||(step->GetPreStepPoint()->GetPosition().z()<-Cl_Lng && step->GetPreStepPoint()->GetPosition().z()>=-(Cl_Lng+Gr_wd+Res_wd+SiPM_wd_in+SiPM_wd_out)))
+           {
+            if(SCEPRINT)std::cout << "False border reflection at rectangular face" <<std::endl;
+            track->SetTrackStatus(fStopAndKill);
+           }
+          }
+          /*
+          if(step->GetPreStepPoint()->GetPosition().x() == Cl_wd||step->GetPreStepPoint()->GetPosition().x()== -Cl_wd) //Disables all reflections in this perpendicular direction (border surface and TIR)
+          {
+            track->SetTrackStatus(fStopAndKill);           
+          }*/
+         }
+         //*/
+         //return false;
         }
-       }
-      }	  
-  //return false;
-}
          
-else if (  track->GetCreatorProcess()->G4VProcess::GetProcessName() == "ScintillationPhys"  )
+	else if (  track->GetCreatorProcess()->G4VProcess::GetProcessName() == "ScintillationPhys"  )
   {
      if(SCEPRINT) std::cout<<" found scintillation photon"<<std::endl;
      std::string amedia = ((track->GetMaterial())->GetName());
      if(amedia.find("kill")!=std::string::npos)
-     {
-      if(amedia.find("kill_SiPM_left")!=std::string::npos)  	     //Left SiPMs only
-      { 
-       double z_init = fabs(step->GetPreStepPoint()->GetPosition().z());
-       if(z_init < (Cl_Lng+Gr_wd+0.00001) && z_init > (Cl_Lng+Gr_wd-0.00001)) //Hits only for top surface of the SiPMs
+     //if(((track->GetMaterial())->GetName())=="killMedia") 
+	    {
+       if(amedia.find("kill_SiPM_left")!=std::string::npos)  	     //Left SiPMs only
+       { 
+        double z_init = fabs(step->GetPreStepPoint()->GetPosition().z());        
+        if(z_init < (Cl_Lng+Gr_wd+Res_wd+0.00001) && z_init > (Cl_Lng+Gr_wd+Res_wd-0.00001)) //Hits only for top surface of the SiPMs
        {
         if(SCEPRINT)
         {
+         //std::cout<< "Reached the left SiPM MMP" << std::endl;        
          std::cout<<"killing photon"<<std::endl;
         }
+        //std::cout<<"Initial z coordinate " << step->GetPreStepPoint()->GetPosition().z() << std::endl;
+
+        //if(phstep>1)// don't count photons created in kill media i.e. with step number 1 because they are unphysical
         if(phstep>1)// don't count photons created in kill media i.e. with step number 1 because they are unphysical
         {
-	 hit->nscintillator+=1;
-	 if(ibin>-1&&ibin<hit->nbin) ((hit->nscintwave).at(ibin))+=1;
+	       hit->nscintillator+=1;
+	       if(ibin>-1&&ibin<hit->nbin) ((hit->nscintwave).at(ibin))+=1;
          if(ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->nscinttime).at(ibin_t))+=1; //Time of arrival at killMedia for scintillation
          if(ibin>-1&&ibin<hit->nbin&&ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->nscintwave_time).at(ibin_t).at(ibin))+=1; //2 D, both wavelength and arrival time in killMedia
         }
@@ -321,120 +385,123 @@ else if (  track->GetCreatorProcess()->G4VProcess::GetProcessName() == "Scintill
 
        else if(amedia.find("kill_SiPM_right")!=std::string::npos)  	     //Right SiPMs only
        { 
-       if(step->GetPreStepPoint()->GetPosition().z() == (Cl_Lng+Gr_wd)) //Hits only for top surface of the SiPMs
+       if(step->GetPreStepPoint()->GetPosition().z() == (Cl_Lng+Gr_wd+Res_wd)) //Hits only for top surface of the SiPMs
        {
         if(SCEPRINT) std::cout<<"killing photon"<<std::endl;
         //if(phstep>1)// don't count photons created in kill media i.e. with step number 1 because they are unphysical
         if(phstep>1)// don't count photons created in kill media i.e. with step number 1 because they are unphysical
         {
-	 hit->nscintillator+=1;
-	 if(ibin>-1&&ibin<hit->nbin) ((hit->nscintwave).at(ibin))+=1;
+	       hit->nscintillator+=1;
+	       if(ibin>-1&&ibin<hit->nbin) ((hit->nscintwave).at(ibin))+=1;
          if(ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->nscinttime).at(ibin_t))+=1; //Time of arrival at killMedia for scintillation
          if(ibin>-1&&ibin<hit->nbin&&ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->nscintwave_time).at(ibin_t).at(ibin))+=1; //2 D, both wavelength and arrival time in killMedia
         }
         }
-	 track->SetTrackStatus(fStopAndKill); //kill ALL killMedia photons after the first step, regardless of whether they were created there or not (to avoid overcounting)
+	      track->SetTrackStatus(fStopAndKill); //kill ALL killMedia photons after the first step, regardless of whether they were created there or not (to avoid overcounting)
        }
          
        
       else
       {
-      if(SCEPRINT) std::cout<<"killing photon"<<std::endl;
-      if(phstep>1) // don't count photons created in kill media i.e. with step number 1 because they are unphysical      
+	      if(SCEPRINT) std::cout<<"killing photon"<<std::endl;
+	      if(phstep>1) // don't count photons created in kill media i.e. with step number 1 because they are unphysical      
         {
-	 hit->nscintillator+=1;
-	 if((ibin>-1)&&(ibin<hit->nbin)) ((hit->nscintwave).at(ibin))+=1;
-         if(ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->nscinttime).at(ibin_t))+=1; //Time of arrival at killMedia for scintillation
+	       hit->nscintillator+=1;
+	       if((ibin>-1)&&(ibin<hit->nbin)) ((hit->nscintwave).at(ibin))+=1;
+         if(ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->nscinttime).at(ibin_t))+=1; //Time of arrival at killMedia for scintillation 
          if(ibin>-1&&ibin<hit->nbin&&ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->nscintwave_time).at(ibin_t).at(ibin))+=1; //2 D, both wavelength and arrival time in killMedia
         }
        track->SetTrackStatus(fStopAndKill); //kill ALL killMedia photons after the first step, regardless of whether they were created there or not (to avoid overcounting)
        }
 
-       }        
-  
-     else 
-     {
-     if( (phstep==1) ) 
-     {
-      hit->nscintillator+=1;
-      if((ibin>-1)&&(ibin<hit->nbin)) ((hit->nscintwave).at(ibin))+=1;
-      if(ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->nscinttime).at(ibin_t))+=1; //Time of production (mainly in crystal) for scintillation
-      if(ibin>-1&&ibin<hit->nbin&&ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->nscintwave_time).at(ibin_t).at(ibin))+=1; //2 D, both wavelength and arrival time in killMedia
-      }
-    }
-   
-    //if(((track->GetMaterial())->GetName())=="Air" && step->GetPreStepPoint()->GetPosition() != step->GetPostStepPoint()->GetPosition())
-    if(amedia.find("Air")!=std::string::npos && (fabs(step->GetPreStepPoint()->GetPosition().x() - step->GetPostStepPoint()->GetPosition().x())>0.1 || fabs(step->GetPreStepPoint()->GetPosition().y() - step->GetPostStepPoint()->GetPosition().y())>0.1 || fabs(step->GetPreStepPoint()->GetPosition().z() - step->GetPostStepPoint()->GetPosition().z())>0.1))
-    {
-     hit->nscintillator+=1;
-     //std::cout<<"escaped scintillator photon"<<std::endl;
-    }
- 
-    if(amedia.find("Air")!=std::string::npos)
-    {
-     if(step->GetPostStepPoint()->GetPosition().z() > (Cl_Lng+Gr_wd+SiPM_wd+0.005) || step->GetPostStepPoint()->GetPosition().z() < -(Cl_Lng+Gr_wd+SiPM_wd+0.005))
-     {
-      //std::cout << "False border reflection" <<std::endl;
-      track->SetTrackStatus(fStopAndKill);
-     }           
-    }
+       }
+        
+	  else {
+	    //if( (track->GetParentID()==1)&&(track->GetCurrentStepNumber()==1) ) hit->nscintillator+=1; 
+         	    if( (phstep==1) ) 
+              {
+               hit->nscintillator+=1;
+               if((ibin>-1)&&(ibin<hit->nbin)) ((hit->nscintwave).at(ibin))+=1;
+               if(ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->nscinttime).at(ibin_t))+=1; //Time of production (mainly in crystal) for scintillation
+               if(ibin>-1&&ibin<hit->nbin&&ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->nscintwave_time).at(ibin_t).at(ibin))+=1; //2 D, both wavelength and arrival time in killMedia
+              }
+	  }
+    //if(phstep>3){track->SetTrackStatus(fStopAndKill);} //Only for reduction of spew with OPTICALPHOTON as gun, requiring multiple photons in one display
+          if(amedia.find("Air")!=std::string::npos && (fabs(step->GetPreStepPoint()->GetPosition().x() - step->GetPostStepPoint()->GetPosition().x())>0.1 || fabs(step->GetPreStepPoint()->GetPosition().y() - step->GetPostStepPoint()->GetPosition().y())>0.1 || fabs(step->GetPreStepPoint()->GetPosition().z() - step->GetPostStepPoint()->GetPosition().z())>0.1))
 
-    if(amedia.find("Air")!=std::string::npos)
-    {
-     //Reflection at rectangular face but not at the crystal face (outside z = 30 mm)
-     if(step->GetPostStepPoint()->GetPosition().x() > (Cl_wd+0.005) || step->GetPostStepPoint()->GetPosition().x() < -(Cl_wd+0.005) || step->GetPostStepPoint()->GetPosition().y() > (Cl_wd+0.005) || step->GetPostStepPoint()->GetPosition().y() < -(Cl_wd+0.005))
-     {
-      //std::cout << "Potential False reflection at rectangular face" <<std::endl;    
-      //std::cout << step->GetPreStepPoint()->GetPosition().z() <<std::endl;
-      if((step->GetPreStepPoint()->GetPosition().z()<=(Cl_Lng+Gr_wd+SiPM_wd) && step->GetPreStepPoint()->GetPosition().z()>Cl_Lng)||(step->GetPreStepPoint()->GetPosition().z()<-Cl_Lng && step->GetPreStepPoint()->GetPosition().z()>=-(Cl_Lng+Gr_wd+SiPM_wd)))
-      {
-       //std::cout << "False border reflection at rectangular face" <<std::endl;
-       track->SetTrackStatus(fStopAndKill);
-      }
-     }
-    }
+          {
+           hit->nscintillator+=1;
+           //std::cout<<"escaped scintillator photon"<<std::endl;
+           //std::cout << step->GetPostStepPoint()->GetPosition().z() <<std::endl;
+          }
+          ///*
+          if(amedia.find("Air")!=std::string::npos)
+          {
+          if(step->GetPostStepPoint()->GetPosition().z() > (Cl_Lng+Gr_wd+Res_wd+SiPM_wd_in+SiPM_wd_out-0.005) || step->GetPostStepPoint()->GetPosition().z() < -(Cl_Lng+Gr_wd+Res_wd+SiPM_wd_in+SiPM_wd_out-0.005))
+          {
+           //std::cout << "False border reflection" <<std::endl;
+           track->SetTrackStatus(fStopAndKill);
+          }           
+          }
+
+          if(amedia.find("Air")!=std::string::npos)
+          {
+           //Reflection at rectangular face but not at the crystal face (outside z = 30 mm)
+          if(step->GetPostStepPoint()->GetPosition().x() > (Cl_wd-0.005) || step->GetPostStepPoint()->GetPosition().x() < -(Cl_wd-0.005) || step->GetPostStepPoint()->GetPosition().y() > (Cl_wd-0.005) || step->GetPostStepPoint()->GetPosition().y() < -(Cl_wd-0.005))
+          {
+           //std::cout << "Potential False reflection at rectangular face" <<std::endl;    
+           //std::cout << step->GetPreStepPoint()->GetPosition().z() <<std::endl;
+           if((step->GetPreStepPoint()->GetPosition().z()<=(Cl_Lng+Gr_wd+Res_wd+SiPM_wd_in+SiPM_wd_out) && step->GetPreStepPoint()->GetPosition().z()>Cl_Lng)||(step->GetPreStepPoint()->GetPosition().z()<-Cl_Lng && step->GetPreStepPoint()->GetPosition().z()>=-(Cl_Lng+Gr_wd+Res_wd+SiPM_wd_in+SiPM_wd_out)))
+           {
+            if(SCEPRINT)std::cout << "False border reflection at rectangular face" <<std::endl;
+            track->SetTrackStatus(fStopAndKill);
+           }
+          }
+         }
+          //*/
+          //return false;
+        }
+	else {
+          //if(SCEPRINT) std::cout<<"      other photon"<<std::endl;
+          //track->SetTrackStatus(fStopAndKill);
+          //return false;
+	}
+ 
+ 	if(SCEPRINT) {
+	  std::cout<<"     SCECOUNT = "<<SCECOUNT<<std::endl;
+	
+	  std::cout<<"     will robinson have photon "<<track->GetCreatorProcess()->G4VProcess::GetProcessName() <<std::endl;
+	  std::cout<<"     photon mother is "<<track->GetParentID()<<std::endl;
+	  std::cout<<"     photon material is "<<(track->GetMaterial())->GetName()<<std::endl;
+	  std::cout<<"     photon creator process is "<<(track->GetCreatorProcess())->GetProcessName()<<std::endl;
+	  std::cout<<"     photon  process  type is "<<(track->GetCreatorProcess())->GetProcessType()<<std::endl;
+	  std::cout<<"     photon sub process is "<<(track->GetCreatorProcess())->GetProcessSubType()<<std::endl;
+	  std::cout<<"     photon current step number is "<<track->GetCurrentStepNumber()<<std::endl;
+    //G4StepStatus* bound_proc = step->GetPostStepPoint()->GetStepStatus();
+    //G4OpBoundaryProcess* bound_proc = (G4OpBoundaryProcess*)step->GetPostStepPoint()->GetProcess();
+    std::cout<<"     photon boundary process is " << step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName() <<std::endl;
+    std::cout<<"     Check for boundary " << step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessSubType() <<std::endl;
+    std::cout<<"     photon pre position is: x coordinate- "<<step->GetPreStepPoint()->GetPosition().x() <<" y coordinate- "<<step->GetPreStepPoint()->GetPosition().y()<<" z coordinate- "<<step->GetPreStepPoint()->GetPosition().z()<<std::endl;
+    std::cout<<"     photon post position is: x coordinate- "<<step->GetPostStepPoint()->GetPosition().x() <<" y coordinate- "<<step->GetPostStepPoint()->GetPosition().y() <<" z coordinate- "<<step->GetPostStepPoint()->GetPosition().z()<<std::endl;
+ 	  std::cout<<"     the pre volume name is "<<thePrePVName<<std::endl;
+	  std::cout<<"     the post volume name is "<<thePostPVName<<std::endl;
+	//(track->GetCreatorProcess())->DumpInfo();
+	  std::cout<<"     photon energy is "<<track->GetTotalEnergy()/eV<<std::endl;
+	  std::cout<<"     photon wavelength is "<<fromEvToNm(track->GetTotalEnergy()/eV)<<std::endl;
+    std::cout<<"     Arrival time is "<<tof<<std::endl;
+    std::cout<<"     Time Bin number is " << (tof-hit->timemin)/((hit->timemax-hit->timemin)/hit->nbin_t)<<std::endl;
+    std::cout<<"     number of cherenkov in time bin is " << (hit->ncertime).at((tof-hit->timemin)/((hit->timemax-hit->timemin)/hit->nbin_t))<<std::endl;
+    std::cout<<"     number of scintillation in time bin is " << (hit->nscinttime).at((tof-hit->timemin)/((hit->timemax-hit->timemin)/hit->nbin_t))<<std::endl;
     
-  //return false;
-  }
- else
-{
-  //if(SCEPRINT) std::cout<<"      other photon"<<std::endl;
- //track->SetTrackStatus(fStopAndKill);
- //return false;
-}
- 
-if(SCEPRINT)
-{
-  std::cout<<"     SCECOUNT="<<SCECOUNT<<std::endl;
-  std::cout<<"     will robinson have photon "<<track->GetCreatorProcess()->G4VProcess::GetProcessName() <<std::endl;
-  std::cout<<"     photon mother is "<<track->GetParentID()<<std::endl;
-  std::cout<<"     photon material is "<<(track->GetMaterial())->GetName()<<std::endl;
-  std::cout<<"     photon creator process is "<<(track->GetCreatorProcess())->GetProcessName()<<std::endl;
-  std::cout<<"     photon  process  type is "<<(track->GetCreatorProcess())->GetProcessType()<<std::endl;
-  std::cout<<"     photon sub process is "<<(track->GetCreatorProcess())->GetProcessSubType()<<std::endl;
-  std::cout<<"     photon current step number is "<<track->GetCurrentStepNumber()<<std::endl;
-  std::cout<<"     photon pre position is: x coordinate- "<<step->GetPreStepPoint()->GetPosition().x() <<" y coordinate- "<<step->GetPreStepPoint()->GetPosition().y()<<" z coordinate- "<<step->GetPreStepPoint()->GetPosition().z()<<std::endl;
-  std::cout<<"     photon post position is: x coordinate- "<<step->GetPostStepPoint()->GetPosition().x() <<" y coordinate- "<<step->GetPostStepPoint()->GetPosition().y() <<" z coordinate- "<<step->GetPostStepPoint()->GetPosition().z()<<std::endl;
-  std::cout<<"     the pre volume name is "<<thePrePVName<<std::endl;
-  std::cout<<"     the post volume name is "<<thePostPVName<<std::endl;
-//(track->GetCreatorProcess())->DumpInfo();
-  std::cout<<"     photon energy is "<<track->GetTotalEnergy()/eV<<std::endl;
-  std::cout<<"     photon wavelength is "<<fromEvToNm(track->GetTotalEnergy()/eV)<<std::endl;
-  std::cout<<"     Wavelength Bin number is " << (fromEvToNm(track->GetTotalEnergy()/eV)-hit->wavelenmin)/((hit->wavelenmax-hit->wavelenmin)/hit->nbin)<<std::endl;
-  std::cout<<"     number of cherenkov in wavelength bin is "<< (hit->ncerwave).at((fromEvToNm(track->GetTotalEnergy()/eV)-hit->wavelenmin)/((hit->wavelenmax-hit->wavelenmin)/hit->nbin))<<std::endl;
-  std::cout<<"     number of scintillation in wavelength bin is "<< (hit->nscintwave).at((fromEvToNm(track->GetTotalEnergy()/eV)-hit->wavelenmin)/((hit->wavelenmax-hit->wavelenmin)/hit->nbin))<<std::endl;
+    std::cout<<"     number of cherenkov in wavelength time bin is " << (hit->ncerwave_time).at((tof-hit->timemin)/((hit->timemax-hit->timemin)/hit->nbin_t)).at((fromEvToNm(track->GetTotalEnergy()/eV)-hit->wavelenmin)/((hit->wavelenmax-hit->wavelenmin)/hit->nbin))<<std::endl;
+    std::cout<<"     number of scintillation in wavelength time bin is " << (hit->nscintwave_time).at((tof-hit->timemin)/((hit->timemax-hit->timemin)/hit->nbin_t)).at((fromEvToNm(track->GetTotalEnergy()/eV)-hit->wavelenmin)/((hit->wavelenmax-hit->wavelenmin)/hit->nbin))<<std::endl;        
 
-  std::cout<<"     Arrival time is "<<tof<<std::endl;
-  std::cout<<"     Time Bin number is " << (tof-hit->timemin)/((hit->timemax-hit->timemin)/hit->nbin_t)<<std::endl;
-  std::cout<<"     number of cherenkov in time bin is " << (hit->ncertime).at((tof-hit->timemin)/((hit->timemax-hit->timemin)/hit->nbin_t))<<std::endl;
-  std::cout<<"     number of scintillation in time bin is " << (hit->nscinttime).at((tof-hit->timemin)/((hit->timemax-hit->timemin)/hit->nbin_t))<<std::endl;
-   
-  std::cout<<"     number of cherenkov in wavelength time bin is " << (hit->ncerwave_time).at((tof-hit->timemin)/((hit->timemax-hit->timemin)/hit->nbin_t)).at((fromEvToNm(track->GetTotalEnergy()/eV)-hit->wavelenmin)/((hit->wavelenmax-hit->wavelenmin)/hit->nbin))<<std::endl;
-  std::cout<<"     number of scintillation in wavelength time bin is " << (hit->nscintwave_time).at((tof-hit->timemin)/((hit->timemax-hit->timemin)/hit->nbin_t)).at((fromEvToNm(track->GetTotalEnergy()/eV)-hit->wavelenmin)/((hit->wavelenmax-hit->wavelenmin)/hit->nbin))<<std::endl;        
-		
-  std::cout<<"     number of cherenkov is "<<hit->ncerenkov<<std::endl;
-  std::cout<<"     number of scintillation is "<<hit->nscintillator<<std::endl;
- }
+	  std::cout<<"     number of cherenkov is "<<hit->ncerenkov <<std::endl;
+	  std::cout<<"     number of cherenkov wihout TIR is "<< hit->ncer_1 <<std::endl;
+	  std::cout<<"     number of cherenkov that bounce is "<< hit->ncer_bounce <<std::endl;
+
+	  std::cout<<"     number of scintillation is "<<hit->nscintillator<<std::endl;
+	}
 
 
       }
