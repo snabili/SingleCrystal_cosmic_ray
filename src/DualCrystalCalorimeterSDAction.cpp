@@ -216,14 +216,6 @@ namespace dd4hep {
          if(ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->ncertime).at(ibin_t))+=1; //Time of arrival at killMedia for Cerenkov
          if(ibin>-1&&ibin<hit->nbin&&ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->ncerwave_time).at(ibin_t).at(ibin))+=1; //2 D, both wavelength and arrival time
 
-         if(phstep==3) //1- Crystal, 2 - silicone, 3 - kill Media, no bounce, no air
-         {
-          hit->ncer_1+=1;
-         }
-         else if(phstep>3)
-         {
-          hit->ncer_bounce+=1;
-         }
         }
        }
 	      track->SetTrackStatus(fStopAndKill); //kill ALL killMedia photons after the first step, regardless of whether they were created there or not (to avoid overcounting)
@@ -241,14 +233,6 @@ namespace dd4hep {
 	       if(ibin>-1&&ibin<hit->nbin) ((hit->ncerwave).at(ibin))+=1;
          if(ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->ncertime).at(ibin_t))+=1; //Time of arrival at killMedia for Cerenkov
          if(ibin>-1&&ibin<hit->nbin&&ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->ncerwave_time).at(ibin_t).at(ibin))+=1; //2 D, both wavelength and arrival time
-         if(phstep==3) //1- Crystal, 2 - silicone, 3 - kill Media, no bounce, no air
-         {
-          hit->ncer_1+=1;
-         }
-         else if(phstep>3)
-         {
-          hit->ncer_bounce+=1;
-         }
 
         }
         }
@@ -265,14 +249,6 @@ namespace dd4hep {
 	       if(ibin>-1&&ibin<hit->nbin) ((hit->ncerwave).at(ibin))+=1;
          if(ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->ncertime).at(ibin_t))+=1; //Time of arrival at killMedia for Cerenkov
          if(ibin>-1&&ibin<hit->nbin&&ibin_t>-1&&ibin_t<hit->nbin_t) ((hit->ncerwave_time).at(ibin_t).at(ibin))+=1; //2 D, both wavelength and arrival time
-         if(phstep==3) //1- Crystal, 2 - silicone, 3 - kill Media, no bounce, no air
-         {
-          hit->ncer_1+=1;
-         }
-         else if(phstep>3)
-         {
-          hit->ncer_bounce+=1;
-         }
 
         }
 	      track->SetTrackStatus(fStopAndKill); //kill ALL killMedia photons after the first step, regardless of whether they were created there or not (to avoid overcounting)
@@ -497,8 +473,6 @@ namespace dd4hep {
     std::cout<<"     number of scintillation in wavelength time bin is " << (hit->nscintwave_time).at((tof-hit->timemin)/((hit->timemax-hit->timemin)/hit->nbin_t)).at((fromEvToNm(track->GetTotalEnergy()/eV)-hit->wavelenmin)/((hit->wavelenmax-hit->wavelenmin)/hit->nbin))<<std::endl;        
 
 	  std::cout<<"     number of cherenkov is "<<hit->ncerenkov <<std::endl;
-	  std::cout<<"     number of cherenkov wihout TIR is "<< hit->ncer_1 <<std::endl;
-	  std::cout<<"     number of cherenkov that bounce is "<< hit->ncer_bounce <<std::endl;
 
 	  std::cout<<"     number of scintillation is "<<hit->nscintillator<<std::endl;
 	}
