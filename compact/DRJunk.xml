@@ -184,6 +184,7 @@
 
     <!--Varying this to first 1.3 instead of 1.4658-->
     <!--Changing to 1.43-->
+    <!--Temporarily Changing to 1.55 to check -90 deg counts-->
     <matrix name="RINDEX__Silicone" coldim="2" values="  
      1.1*eV 1.43
      1.500*eV 1.43
@@ -222,6 +223,17 @@
      4.002*eV 1.43
      4.136*eV 1.43
      6.0*eV 1.43
+    "/>    
+
+    <matrix name="RINDEX__ResWin" coldim="2" values="  
+    1.1*eV 1.54
+    1.77*eV 1.55
+    2.066*eV 1.55
+    2.47*eV 1.56
+    2.75*eV 1.57
+    3.099*eV 1.58
+    4.002*eV 1.60
+    6.0*eV 1.65
     "/>    
 
     <matrix name="RINDEX__Teflon" coldim="2" values="  
@@ -264,6 +276,7 @@
      6.0*eV 1.37
 
      "/>   
+
     <matrix name="RINDEX__PbF2" coldim="2" values="    
     1.*eV 1.735
     1.24*eV 1.742
@@ -277,8 +290,23 @@
     4.9*eV 1.90
     6.2*eV 1.99 
     
-    "/>    
+    "/>   
 <!-- 6.2 eV is extra added for 200 nm Cerenkov generation-->
+    <!-- Only dummy for changing as suggested by Dan Levine-->
+    <!--<matrix name="RINDEX__PbF2" coldim="2" values="    
+    1.*eV 1.4335
+    1.24*eV 1.44
+    1.377*eV 1.443
+    1.55*eV 1.447
+    1.77*eV 1.452
+    2.066*eV 1.46
+    2.48*eV 1.476
+    3.1*eV 1.5
+    4.*eV 1.59
+    4.9*eV 1.6
+    6.2*eV 1.7 
+    
+    "/>-->
 
 
     <!-- This has to be shifted towards the left i.e. 280 nm-->
@@ -338,6 +366,64 @@
 4.53031577*eV 0*cm
     
     "/>
+
+<!--10 times the 'original' absorption length-->
+<!--<matrix name="AbsLen_PbF2" coldim="2" values="    
+0.999872476*eV 749.0456929*cm
+1.127128973*eV 749.0456929*cm
+1.647309468*eV 734.3691501*cm
+1.674037923*eV 744.1530713*cm
+1.69499219*eV 749.0456929*cm
+1.726049464*eV 752.307*cm
+1.752577282*eV 755.5683071*cm
+1.7858016*eV 753.9376535*cm
+1.824909497*eV 752.307*cm
+1.848260617*eV 749.0456929*cm
+1.875458612*eV 745.7837249*cm
+1.893487907*eV 737.6304572*cm
+1.915247329*eV 727.845875*cm
+1.951473676*eV 740.8917643*cm
+1.987272254*eV 737.6304572*cm
+2.024408781*eV 737.6304572*cm
+2.062960036*eV 729.4765285*cm
+2.103007719*eV 729.4765285*cm
+2.134079031*eV 727.845875*cm
+2.166082251*eV 722.9539144*cm
+2.201294011*eV 718.0619537*cm
+2.237669491*eV 709.9080251*cm
+2.270499031*eV 706.646718*cm
+2.304305791*eV 700.1241038*cm
+2.34673554*eV 695.2314822*cm
+2.393397916*eV 687.0782146*cm
+2.439204651*eV 678.9242859*cm
+2.49252072*eV 667.5090501*cm
+2.533322279*eV 659.3557163*cm
+2.584698489*eV 651.2021182*cm
+2.644642806*eV 638.156295*cm
+2.697321436*eV 623.4798182*cm
+2.748650152*eV 608.8032754*cm
+2.801970285*eV 587.6039202*cm
+2.87255372*eV 568.0352184*cm
+2.930840296*eV 543.5743578*cm
+2.983302851*eV 520.7442168*cm
+3.054809709*eV 489.7604776*cm
+3.116322969*eV 468.5611223*cm
+3.199149408*eV 440.8388224*cm
+3.26667725*eV 418.0086814*cm
+3.337117326*eV 393.5478208*cm
+3.432275393*eV 360.9333619*cm
+3.521533716*eV 331.5803424*cm
+3.621602547*eV 300.5966032*cm
+3.746863098*eV 263.0899855*cm
+3.874159591*eV 230.4755266*cm
+3.99561802*eV 196.2303482*cm
+4.1249386*eV 161.9851697*cm
+4.237894721*eV 117.9556073*cm
+4.348467005*eV 80.44898962*cm
+4.455782115*eV 34.78876048*cm
+4.53031577*eV 0*cm
+    
+    "/>-->
 
     <matrix name="RINDEX__UG11_filter" coldim="2" values="  
      1.1*eV 1.56
@@ -717,15 +803,44 @@
     "/>    
     
     <matrix name="Spec_lobe" coldim="2" values="
+    1.0*eV 0.25
+    6.0*eV 0.25
+    "/>    
+
+    <matrix name="Spec_spike" coldim="2" values="
+    1.0*eV 0.75
+    6.0*eV 0.75
+    "/>    
+
+    <matrix name="Ref_gndmet" coldim="2" values="
+    1.0*eV 0.95
+    6.0*eV 0.95
+    "/>    
+
+    <matrix name="Spec_lobe_1" coldim="2" values="
+    1.0*eV 0.0
+    6.0*eV 0.0
+    "/>    
+
+    <matrix name="Spec_spike_1" coldim="2" values="
     1.0*eV 1.0
     6.0*eV 1.0
     "/>    
 
-    <matrix name="Ref_gndmet" coldim="2" values="
+    <matrix name="Ref_gndmet_1" coldim="2" values="
     1.0*eV 1.0
     6.0*eV 1.0
     "/>    
-    
+
+    <!--<matrix name="Ref_gndmet_1" coldim="2" values="
+    1.0*eV 0.0
+    6.0*eV 0.0
+    "/>-->
+
+    <matrix name="Ref_sigmaalpha" coldim="2" values="
+    1.0*eV 90.0
+    6.0*eV 90.0
+    "/>    
 
     </properties>
 
@@ -743,11 +858,26 @@
     
     <opticalsurface name="/world/DRCrystal#tyvekSurface" finish="etchedtyvekair" model="LUT" type="dielectric_LUT" value="1.0">
     </opticalsurface>  
+    <!--<opticalsurface name="/world/DRCrystal#dielectricSurface" finish="polished" model="glisur" type="dielectric_dielectric">
+    </opticalsurface>-->
 
-    <opticalsurface name="/world/DRCrystal#dielectricSurface" finish="ground" model="unified" type="dielectric_metal">
-    <property name="SPECULARLOBECONSTANT"     ref="Spec_lobe"/>-->
-    <property name="REFLECTIVITY"     ref="Ref_gndmet"/>      
+    <opticalsurface name="/world/DRCrystal#dielectricSurface" finish="ground" model="unified" type="dielectric_metal" >
+
+    <property name="SPECULARLOBECONSTANT"     ref="Spec_lobe"/>
+    <property name="SPECULARSPIKECONSTANT"     ref="Spec_spike"/>
+    <!--<property name="SigmaAlpha" ref="Ref_sigmaalpha"/>-->
+    <property name="REFLECTIVITY"     ref="Ref_gndmet"/>
     </opticalsurface>
+
+
+    <opticalsurface name="/world/DRCrystal#cookieSurface" finish="ground" model="unified" type="dielectric_dielectric" >
+
+    <property name="SPECULARLOBECONSTANT"     ref="Spec_lobe_1"/>
+    <property name="SPECULARSPIKECONSTANT"     ref="Spec_spike_1"/>
+    <!--<property name="SigmaAlpha" ref="Ref_sigmaalpha"/>-->
+    <property name="REFLECTIVITY"     ref="Ref_gndmet_1"/>
+    </opticalsurface>
+
   </surfaces>
 
 
@@ -782,7 +912,7 @@
       <fraction n="0.754" ref="N"/>
       <fraction n="0.234" ref="O"/>
       <fraction n="0.012" ref="Ar"/>
-      <property name="RINDEX"        ref="RINDEX__Silicone"/>
+      <property name="RINDEX"        ref="RINDEX__ResWin"/>
     </material>
 
     <material name="kill_SiPM_left_2">
@@ -790,7 +920,7 @@
       <fraction n="0.754" ref="N"/>
       <fraction n="0.234" ref="O"/>
       <fraction n="0.012" ref="Ar"/>
-      <property name="RINDEX"        ref="RINDEX__Silicone"/>
+      <property name="RINDEX"        ref="RINDEX__ResWin"/>
     </material>
     
     <material name="kill_SiPM_left_3">
@@ -798,7 +928,7 @@
       <fraction n="0.754" ref="N"/>
       <fraction n="0.234" ref="O"/>
       <fraction n="0.012" ref="Ar"/>
-      <property name="RINDEX"        ref="RINDEX__Silicone"/>
+      <property name="RINDEX"        ref="RINDEX__ResWin"/>
     </material>
     
     <material name="kill_SiPM_left_4">
@@ -806,7 +936,7 @@
       <fraction n="0.754" ref="N"/>
       <fraction n="0.234" ref="O"/>
       <fraction n="0.012" ref="Ar"/>
-      <property name="RINDEX"        ref="RINDEX__Silicone"/>
+      <property name="RINDEX"        ref="RINDEX__ResWin"/>
     </material>
 
 
@@ -816,7 +946,7 @@
       <fraction n="0.754" ref="N"/>
       <fraction n="0.234" ref="O"/>
       <fraction n="0.012" ref="Ar"/>
-      <property name="RINDEX"        ref="RINDEX__Silicone"/>
+      <property name="RINDEX"        ref="RINDEX__ResWin"/>
     </material>
 
     <material name="kill_SiPM_right_2">
@@ -824,7 +954,7 @@
       <fraction n="0.754" ref="N"/>
       <fraction n="0.234" ref="O"/>
       <fraction n="0.012" ref="Ar"/>
-      <property name="RINDEX"        ref="RINDEX__Silicone"/>
+      <property name="RINDEX"        ref="RINDEX__ResWin"/>
     </material>
 
     <material name="kill_SiPM_right_3">
@@ -832,7 +962,7 @@
       <fraction n="0.754" ref="N"/>
       <fraction n="0.234" ref="O"/>
       <fraction n="0.012" ref="Ar"/>
-      <property name="RINDEX"        ref="RINDEX__Silicone"/>
+      <property name="RINDEX"        ref="RINDEX__ResWin"/>
     </material>
 
     <material name="kill_SiPM_right_4">
@@ -840,7 +970,7 @@
       <fraction n="0.754" ref="N"/>
       <fraction n="0.234" ref="O"/>
       <fraction n="0.012" ref="Ar"/>
-      <property name="RINDEX"        ref="RINDEX__Silicone"/>
+      <property name="RINDEX"        ref="RINDEX__ResWin"/>
     </material>
 
     <material name="Silicone_gap">
@@ -850,6 +980,16 @@
       <fraction n="0.006" ref="C"/>
       <fraction n="0.006" ref="H"/>      
       <property name="RINDEX"        ref="RINDEX__Silicone"/>
+    </material>
+    <!--Check mass fractions - these are not the correct ones -->
+
+    <material name="Resin_Window">
+      <D type="density" unit="g/cm3" value="0.965"/>
+      <fraction n="0.754" ref="Si"/>
+      <fraction n="0.234" ref="O"/>
+      <fraction n="0.006" ref="C"/>
+      <fraction n="0.006" ref="H"/>      
+      <property name="RINDEX"        ref="RINDEX__ResWin"/>
     </material>
     <!--Check mass fractions - these are not the correct ones -->
 
@@ -893,13 +1033,12 @@
     <property name="RINDEX"        ref="RINDEX__PbWO4"/>
       <property name="ABSLENGTH" ref="AbsLen_PbWO4"/>
       <property name="SCINTILLATIONCOMPONENT1" ref="scintFast_PbWO4"/>
-      <constant name="SCINTILLATIONYIELD" value="0.2/keV"/>
+      <constant name="SCINTILLATIONYIELD" value="0.45/keV"/>
       <constant name="SCINTILLATIONTIMECONSTANT1" value="5.*ns"/>
       <constant name="SCINTILLATIONTIMECONSTANT2" value="15.*ns"/>
       <constant name="SCINTILLATIONRISETIME1" value="0.01*ns"/>
       <constant name="RESOLUTIONSCALE" value="1."/>
-      <constant name="SCINTILLATIONYIELD1" value="0.23"/>
-      <constant name="SCINTILLATIONYIELD2" value="0.77"/>
+      <constant name="SCINTILLATIONYIELD1" value="0.3"/>
   </material>
 
 
@@ -912,7 +1051,7 @@
       <property name="ABSLENGTH" ref="AbsLen_BGO"/>
       <property name="SCINTILLATIONCOMPONENT1" ref="scintFast_BGO"/>
       <constant name="SCINTILLATIONYIELD" value="9./keV"/>
-      <constant name="SCINTILLATIONTIMECONSTANT1" value="300.0*ns"/>
+      <constant name="SCINTILLATIONTIMECONSTANT1" value="2.8*ns"/>
       <constant name="RESOLUTIONSCALE" value="1."/>
   </material>
   
