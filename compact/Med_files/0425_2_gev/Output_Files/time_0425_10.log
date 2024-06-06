@@ -1,0 +1,214 @@
+   ------------------------------------------------------------------
+  | Welcome to ROOT 6.26/08                        https://root.cern |
+  | (c) 1995-2021, The ROOT Team; conception: R. Brun, F. Rademakers |
+  | Built for linuxx8664gcc on Oct 18 2022, 08:30:35                 |
+  | From tags/v6-26-08@v6-26-08                                      |
+  | With g++ (GCC) 11.3.0                                            |
+  | Try '.help', '.demo', '.license', '.credits', '.quit'/'.q'       |
+   ------------------------------------------------------------------
+
+
+Processing Timing_ana.C(10)...
+******************************************************************************
+*Tree    :EVENT     : Geant4 EVENT information                               *
+*Entries :      100 : Total =     22470566095 bytes  File  Size =  118963282 *
+*        :          : Tree compression factor = 188.89                       *
+******************************************************************************
+*Br    0 :MCParticles : vector<dd4hep::sim::Geant4Particle*>                 *
+*Entries :      100 : Total  Size=    4995378 bytes  File Size  =    2400723 *
+*Baskets :       97 : Basket Size=      32000 bytes  Compression=   2.08     *
+*............................................................................*
+*Br    1 :DRCNoSegment : vector<CalVision::DualCrystalCalorimeterHit*>       *
+*Entries :100 : Total  Size=22465570173 bytes  File Size  = 116560052 *
+*Baskets :      100 : Basket Size=      32000 bytes  Compression= 192.74     *
+*............................................................................*
+ doing MCParticles
+num_evt gen loop is 100
+
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Number of non zero events: 0
+Angle value: 10
+esum_avg [crystal]=-nan
+nscintillator_avg [crystal]=-nan
+ncerenkov_avg [crystal]=-nan
+nscintillator_avg with filter and QE [crystal]=-nan
+ncerenkov_avg with filter and QE [crystal]=-nan
+ntotal_avg with filter and QE [crystal]=-nan
+esum_avg [Air]=-nan
+nscintillator_avg [Air]=-nan
+ncerenkov_avg [Air]=-nan
+nscintillator_avg with filter and QE [Air]=-nan
+ncerenkov_avg with filter and QE [Air]=-nan
+ntotal_avg with filter and QE [Air]=-nan
+esum_avg [Ch 0]=-nan
+nscintillator_avg [Ch 0]=-nan
+ncerenkov_avg [Ch 0]=-nan
+nscintillator_avg with filter and QE [Ch 0]=-nan
+ncerenkov_avg with filter and QE [Ch 0]=-nan
+ntotal_avg with filter and QE [Ch 0]=-nan
+esum_avg [Ch 1]=-nan
+nscintillator_avg [Ch 1]=-nan
+ncerenkov_avg [Ch 1]=-nan
+nscintillator_avg with filter and QE [Ch 1]=-nan
+ncerenkov_avg with filter and QE [Ch 1]=-nan
+ntotal_avg with filter and QE [Ch 1]=-nan
+esum_avg [Ch 2]=-nan
+nscintillator_avg [Ch 2]=-nan
+ncerenkov_avg [Ch 2]=-nan
+nscintillator_avg with filter and QE [Ch 2]=-nan
+ncerenkov_avg with filter and QE [Ch 2]=-nan
+ntotal_avg with filter and QE [Ch 2]=-nan
+esum_avg [Ch 3]=-nan
+nscintillator_avg [Ch 3]=-nan
+ncerenkov_avg [Ch 3]=-nan
+nscintillator_avg with filter and QE [Ch 3]=-nan
+ncerenkov_avg with filter and QE [Ch 3]=-nan
+ntotal_avg with filter and QE [Ch 3]=-nan
+esum_avg [Ch 4]=-nan
+nscintillator_avg [Ch 4]=-nan
+ncerenkov_avg [Ch 4]=-nan
+nscintillator_avg with filter and QE [Ch 4]=-nan
+ncerenkov_avg with filter and QE [Ch 4]=-nan
+ntotal_avg with filter and QE [Ch 4]=-nan
+esum_avg [Ch 5]=-nan
+nscintillator_avg [Ch 5]=-nan
+ncerenkov_avg [Ch 5]=-nan
+nscintillator_avg with filter and QE [Ch 5]=-nan
+ncerenkov_avg with filter and QE [Ch 5]=-nan
+ntotal_avg with filter and QE [Ch 5]=-nan
+esum_avg [Ch 6]=-nan
+nscintillator_avg [Ch 6]=-nan
+ncerenkov_avg [Ch 6]=-nan
+nscintillator_avg with filter and QE [Ch 6]=-nan
+ncerenkov_avg with filter and QE [Ch 6]=-nan
+ntotal_avg with filter and QE [Ch 6]=-nan
+esum_avg [Ch 7]=-nan
+nscintillator_avg [Ch 7]=-nan
+ncerenkov_avg [Ch 7]=-nan
+nscintillator_avg with filter and QE [Ch 7]=-nan
+ncerenkov_avg with filter and QE [Ch 7]=-nan
+ntotal_avg with filter and QE [Ch 7]=-nan
+0
+Branch number 10
+Branch number 11
+Branch number 12
+Branch number 13
+Branch number 14
+Branch number 15
+Branch number 16
+Branch number 17
+Cerenkov max cut 0 Scintillation max cut 0
+Cerenkov max 0 Scintillation max 0
+Cerenkov max cut 0 Scintillation max cut 0
+Cerenkov max 0 Scintillation max 0
+Cerenkov max cut 0 Scintillation max cut 0
+Cerenkov max 0 Scintillation max 0
+Cerenkov max cut 0 Scintillation max cut 0
+Cerenkov max 0 Scintillation max 0
+Cerenkov max cut 0 Scintillation max cut 0
+Cerenkov max 0 Scintillation max 0
+Cerenkov max cut 0 Scintillation max cut 0
+Cerenkov max 0 Scintillation max 0
+Cerenkov max cut 0 Scintillation max cut 0
+Cerenkov max 0 Scintillation max 0
+Cerenkov max cut 0 Scintillation max cut 0
+Cerenkov max 0 Scintillation max 0

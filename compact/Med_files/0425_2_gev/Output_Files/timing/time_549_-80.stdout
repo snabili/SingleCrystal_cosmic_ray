@@ -1,0 +1,9 @@
+started at Tue May 28 16:11:19 EDT 2024
+ran setup
+ran thisdd4hep
+Angle value : -80
+
+root -b 'Timing_ana.C(-80)' .> /home/snabili/data/CalVision/DD4HEP_simulation_05282024/DD4hep/examples/SingleCrystal_cosmic_ray/compact/Med_files/0425_2_gev/Output_Files/time_0425_-80.log
+
+
+finished at Tue May 28 16:13:44 EDT 2024

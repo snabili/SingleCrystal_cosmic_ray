@@ -1,0 +1,52 @@
+Error in <TSystem::ExpandFileName>: input: ${HOME}/rootlogon.C, output: ${HOME}/rootlogon.C
+Error in <TSystem::ExpandFileName>: input: /data/users/snabili/CalVision/DD4HEP_simulation_05282024/DD4hep/examples/SingleCrystal_cosmic_ray/compact/./${HOME}/rootlogon.C, output: /data/users/snabili/CalVision/DD4HEP_simulation_05282024/DD4hep/examples/SingleCrystal_cosmic_ray/compact/./${HOME}/rootlogon.C
+Error in <TSystem::ExpandFileName>: input: /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.26.08-34ede/x86_64-centos7-gcc11-opt/macros/${HOME}/rootlogon.C, output: /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.26.08-34ede/x86_64-centos7-gcc11-opt/macros/${HOME}/rootlogon.C
+Error in <TSystem::ExpandFileName>: input: $HOME/.root.mimes, output: $HOME/.root.mimes
+Error in <TUnixSystem::FindDynamicLibrary>: libSingleDualCrystal[.so | .dll | .dylib | .sl | .dl | .a] does not exist in /data/users/snabili/CalVision/DD4HEP_simulation_05282024/DD4hep/lib:/cvmfs/sft.cern.ch/lcg/views/LCG_102b/x86_64-centos7-gcc11-opt/lib64:/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.26.08-34ede/x86_64-centos7-gcc11-opt/lib:/cvmfs/sft.cern.ch/lcg/releases/MCGenerators/thepeg/2.2.3-6cb32/x86_64-centos7-gcc11-opt/lib/ThePEG:/cvmfs/sft.cern.ch/lcg/releases/MCGenerators/herwig++/7.2.3-90caf/x86_64-centos7-gcc11-opt/lib/Herwig:/cvmfs/sft.cern.ch/lcg/views/LCG_102b/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/jaxlib/mlir/_mlir_libs:/cvmfs/sft.cern.ch/lcg/views/LCG_102b/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/torch/lib:/cvmfs/sft.cern.ch/lcg/views/LCG_102b/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/onnxruntime/capi/:/cvmfs/sft.cern.ch/lcg/views/LCG_102b/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/tensorflow:/cvmfs/sft.cern.ch/lcg/views/LCG_102b/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/tensorflow/contrib/tensor_forest:/cvmfs/sft.cern.ch/lcg/views/LCG_102b/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/tensorflow/python/framework:/cvmfs/sft.cern.ch/lcg/releases/java/8u312-80070/x86_64-centos7-gcc11-opt/jre/lib/amd64:/cvmfs/sft.cern.ch/lcg/views/LCG_102b/x86_64-centos7-gcc11-opt/lib64:/cvmfs/sft.cern.ch/lcg/views/LCG_102b/x86_64-centos7-gcc11-opt/lib:/cvmfs/sft.cern.ch/lcg/releases/gcc/11.3.0-ad0f5/x86_64-centos7/lib:/cvmfs/sft.cern.ch/lcg/releases/gcc/11.3.0-ad0f5/x86_64-centos7/lib64:/cvmfs/sft.cern.ch/lcg/releases/binutils/2.37-355ed/x86_64-centos7/lib:/cvmfs/sft.cern.ch/lcg/releases/R/4.1.2-34737/x86_64-centos7-gcc11-opt/lib64/R/library/readr/rcon:/cvmfs/sft.cern.ch/lcg/releases/clhep/2.4.5.1-ebe73/x86_64-centos7-gcc11-opt/lib:/cvmfs/sft.cern.ch/lcg/releases/XercesC/3.2.3-714f6/x86_64-centos7-gcc11-opt/lib:.:/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.26.08-34ede/x86_64-centos7-gcc11-opt/lib:/lib64/tls/x86_64:/lib64/tls:/lib64/x86_64:/lib64:/usr/lib64/tls/x86_64:/usr/lib64/tls:/usr/lib64/x86_64:/usr/lib64
+Warning in <TClassTable::Add>: class _Rb_tree_iterator<pair<const int,dd4hep::sim::Geant4Particle*> > already in TClassTable
+Warning in <TClassTable::Add>: class _Rb_tree_const_iterator<pair<const int,dd4hep::sim::Geant4Particle*> > already in TClassTable
+Warning in <TClassTable::Add>: class dd4hep::sim::SimpleRun already in TClassTable
+Warning in <TClassTable::Add>: class dd4hep::sim::SimpleEvent already in TClassTable
+Warning in <TClassTable::Add>: class dd4hep::sim::DataExtension already in TClassTable
+Warning in <TClassTable::Add>: class dd4hep::sim::Geant4HitData already in TClassTable
+Warning in <TClassTable::Add>: class dd4hep::sim::Geant4HitData::MonteCarloContrib already in TClassTable
+Warning in <TClassTable::Add>: class dd4hep::sim::Geant4Tracker already in TClassTable
+Warning in <TClassTable::Add>: class dd4hep::sim::Geant4Tracker::Hit already in TClassTable
+Warning in <TClassTable::Add>: class dd4hep::sim::Geant4Calorimeter already in TClassTable
+Warning in <TClassTable::Add>: class dd4hep::sim::Geant4Calorimeter::Hit already in TClassTable
+Warning in <TClassTable::Add>: class dd4hep::sim::ParticleExtension already in TClassTable
+Warning in <TClassTable::Add>: class dd4hep::sim::Geant4Particle already in TClassTable
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/ Time distribution of generated photons for 10 deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/ Wavelength and Time distribution of generated photons for 10 deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/LeftSiPM_0_Time_distribution_with_SiPM_and_filter_for_10_deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/Left SiPM 0 Time distribution for 10 deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/Left SiPM 0 Wavelength and Time distribution with SiPM and filter for 10 deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/LeftSiPM0Wavelength_and_Time_distribution_for_10_deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/LeftSiPM_1_Time_distribution_with_SiPM_and_filter_for_10_deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/Left SiPM 1 Time distribution for 10 deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/Left SiPM 1 Wavelength and Time distribution with SiPM and filter for 10 deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/LeftSiPM1Wavelength_and_Time_distribution_for_10_deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/LeftSiPM_2_Time_distribution_with_SiPM_and_filter_for_10_deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/Left SiPM 2 Time distribution for 10 deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/Left SiPM 2 Wavelength and Time distribution with SiPM and filter for 10 deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/LeftSiPM2Wavelength_and_Time_distribution_for_10_deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/LeftSiPM_3_Time_distribution_with_SiPM_and_filter_for_10_deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/Left SiPM 3 Time distribution for 10 deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/Left SiPM 3 Wavelength and Time distribution with SiPM and filter for 10 deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/LeftSiPM3Wavelength_and_Time_distribution_for_10_deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/RightSiPM_0_Time_distribution_with_SiPM_and_filter_for_10_deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/Right SiPM 0 Time distribution for 10 deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/Right SiPM 0 Wavelength and Time distribution with SiPM and filter for 10 deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/RightSiPM0Wavelength_and_Time_distribution_for_10_deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/RightSiPM_1_Time_distribution_with_SiPM_and_filter_for_10_deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/Right SiPM 1 Time distribution for 10 deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/Right SiPM 1 Wavelength and Time distribution with SiPM and filter for 10 deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/RightSiPM1Wavelength_and_Time_distribution_for_10_deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/RightSiPM_2_Time_distribution_with_SiPM_and_filter_for_10_deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/Right SiPM 2 Time distribution for 10 deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/Right SiPM 2 Wavelength and Time distribution with SiPM and filter for 10 deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/RightSiPM2Wavelength_and_Time_distribution_for_10_deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/RightSiPM_3_Time_distribution_with_SiPM_and_filter_for_10_deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/Right SiPM 3 Time distribution for 10 deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/Right SiPM 3 Wavelength and Time distribution with SiPM and filter for 10 deg.pdf has been created
+Info in <TCanvas::Print>: pdf file Plots/PbWO4/0425_2_gev/Angle_10_deg/RightSiPM3Wavelength_and_Time_distribution_for_10_deg.pdf has been created

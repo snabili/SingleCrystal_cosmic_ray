@@ -44,7 +44,8 @@ void Plot_med()
 
  for(int entry_index=0;entry_index<angle_values_mod.size();entry_index++) //Histogram initialization loop - might have to put angle wise graphs for wavelength distribution here too
  {  
-  TFile *f = new TFile(Form("Med_files/0829/Output_Root_Files/Med_%i_0829.root",angle_values_mod.at(entry_index)));
+  //TFile *f = new TFile(Form("Med_files/0829/Output_Root_Files/Med_%i_0829.root",angle_values_mod.at(entry_index)));
+  TFile *f = new TFile(Form("Root_files/Electrons/PbWO4/0425_2_gev/out_pbwo4_2020200_05302024/out_0425_%i.root",angle_values_mod.at(entry_index)));
   TTree *hgcroc = (TTree *)f->Get("Med_channel");
   
   hgcroc->SetBranchAddress("Channel_Numbers", &Channel_Numbers);

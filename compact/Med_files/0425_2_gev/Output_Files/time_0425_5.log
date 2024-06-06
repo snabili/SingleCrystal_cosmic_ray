@@ -1,0 +1,248 @@
+   ------------------------------------------------------------------
+  | Welcome to ROOT 6.26/08                        https://root.cern |
+  | (c) 1995-2021, The ROOT Team; conception: R. Brun, F. Rademakers |
+  | Built for linuxx8664gcc on Oct 18 2022, 08:30:35                 |
+  | From tags/v6-26-08@v6-26-08                                      |
+  | With g++ (GCC) 11.3.0                                            |
+  | Try '.help', '.demo', '.license', '.credits', '.quit'/'.q'       |
+   ------------------------------------------------------------------
+
+
+Processing Timing_ana.C(5)...
+******************************************************************************
+*Tree    :EVENT     : Geant4 EVENT information                               *
+*Entries :      100 : Total =     22469271974 bytes  File  Size =  117921574 *
+*        :          : Tree compression factor = 190.55                       *
+******************************************************************************
+*Br    0 :MCParticles : vector<dd4hep::sim::Geant4Particle*>                 *
+*Entries :      100 : Total  Size=    4880225 bytes  File Size  =    2344990 *
+*Baskets :       98 : Basket Size=      32000 bytes  Compression=   2.08     *
+*............................................................................*
+*Br    1 :DRCNoSegment : vector<CalVision::DualCrystalCalorimeterHit*>       *
+*Entries :100 : Total  Size=22464391205 bytes  File Size  = 115574098 *
+*Baskets :      100 : Basket Size=      32000 bytes  Compression= 194.37     *
+*............................................................................*
+ doing MCParticles
+num_evt gen loop is 100
+
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Reached here end of hit loop MMP
+Number of non zero events: 0
+Angle value: 5
+esum_avg [crystal]=-nan
+nscintillator_avg [crystal]=-nan
+ncerenkov_avg [crystal]=-nan
+nscintillator_avg with filter and QE [crystal]=-nan
+ncerenkov_avg with filter and QE [crystal]=-nan
+ntotal_avg with filter and QE [crystal]=-nan
+esum_avg [Air]=-nan
+nscintillator_avg [Air]=-nan
+ncerenkov_avg [Air]=-nan
+nscintillator_avg with filter and QE [Air]=-nan
+ncerenkov_avg with filter and QE [Air]=-nan
+ntotal_avg with filter and QE [Air]=-nan
+esum_avg [Ch 0]=-nan
+nscintillator_avg [Ch 0]=-nan
+ncerenkov_avg [Ch 0]=-nan
+nscintillator_avg with filter and QE [Ch 0]=-nan
+ncerenkov_avg with filter and QE [Ch 0]=-nan
+ntotal_avg with filter and QE [Ch 0]=-nan
+esum_avg [Ch 1]=-nan
+nscintillator_avg [Ch 1]=-nan
+ncerenkov_avg [Ch 1]=-nan
+nscintillator_avg with filter and QE [Ch 1]=-nan
+ncerenkov_avg with filter and QE [Ch 1]=-nan
+ntotal_avg with filter and QE [Ch 1]=-nan
+esum_avg [Ch 2]=-nan
+nscintillator_avg [Ch 2]=-nan
+ncerenkov_avg [Ch 2]=-nan
+nscintillator_avg with filter and QE [Ch 2]=-nan
+ncerenkov_avg with filter and QE [Ch 2]=-nan
+ntotal_avg with filter and QE [Ch 2]=-nan
+esum_avg [Ch 3]=-nan
+nscintillator_avg [Ch 3]=-nan
+ncerenkov_avg [Ch 3]=-nan
+nscintillator_avg with filter and QE [Ch 3]=-nan
+ncerenkov_avg with filter and QE [Ch 3]=-nan
+ntotal_avg with filter and QE [Ch 3]=-nan
+esum_avg [Ch 4]=-nan
+nscintillator_avg [Ch 4]=-nan
+ncerenkov_avg [Ch 4]=-nan
+nscintillator_avg with filter and QE [Ch 4]=-nan
+ncerenkov_avg with filter and QE [Ch 4]=-nan
+ntotal_avg with filter and QE [Ch 4]=-nan
+esum_avg [Ch 5]=-nan
+nscintillator_avg [Ch 5]=-nan
+ncerenkov_avg [Ch 5]=-nan
+nscintillator_avg with filter and QE [Ch 5]=-nan
+ncerenkov_avg with filter and QE [Ch 5]=-nan
+ntotal_avg with filter and QE [Ch 5]=-nan
+esum_avg [Ch 6]=-nan
+nscintillator_avg [Ch 6]=-nan
+ncerenkov_avg [Ch 6]=-nan
+nscintillator_avg with filter and QE [Ch 6]=-nan
+ncerenkov_avg with filter and QE [Ch 6]=-nan
+ntotal_avg with filter and QE [Ch 6]=-nan
+esum_avg [Ch 7]=-nan
+nscintillator_avg [Ch 7]=-nan
+ncerenkov_avg [Ch 7]=-nan
+nscintillator_avg with filter and QE [Ch 7]=-nan
+ncerenkov_avg with filter and QE [Ch 7]=-nan
+ntotal_avg with filter and QE [Ch 7]=-nan
+0
+Branch number 10
+Branch number 11
+Branch number 12
+Branch number 13
+Branch number 14
+Branch number 15
+Branch number 16
+Branch number 17
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/ Time distribution of generated photons for 5 deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/ Wavelength and Time distribution of generated photons for 5 deg.pdf
+Cerenkov max cut 0 Scintillation max cut 0
+Cerenkov max 0 Scintillation max 0
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/LeftSiPM_0_Time_distribution_with_SiPM_and_filter_for_5_deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/Left SiPM 0 Time distribution for 5 deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/Left SiPM 0 Wavelength and Time distribution with SiPM and filter for 5 deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/LeftSiPM0Wavelength_and_Time_distribution_for_5_deg.pdf
+Cerenkov max cut 0 Scintillation max cut 0
+Cerenkov max 0 Scintillation max 0
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/LeftSiPM_1_Time_distribution_with_SiPM_and_filter_for_5_deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/Left SiPM 1 Time distribution for 5 deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/Left SiPM 1 Wavelength and Time distribution with SiPM and filter for 5 deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/LeftSiPM1Wavelength_and_Time_distribution_for_5_deg.pdf
+Cerenkov max cut 0 Scintillation max cut 0
+Cerenkov max 0 Scintillation max 0
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/LeftSiPM_2_Time_distribution_with_SiPM_and_filter_for_5_deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/Left SiPM 2 Time distribution for 5 deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/Left SiPM 2 Wavelength and Time distribution with SiPM and filter for 5 deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/LeftSiPM2Wavelength_and_Time_distribution_for_5_deg.pdf
+Cerenkov max cut 0 Scintillation max cut 0
+Cerenkov max 0 Scintillation max 0
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/LeftSiPM_3_Time_distribution_with_SiPM_and_filter_for_5_deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/Left SiPM 3 Time distribution for 5 deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/Left SiPM 3 Wavelength and Time distribution with SiPM and filter for 5 deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/LeftSiPM3Wavelength_and_Time_distribution_for_5_deg.pdf
+Cerenkov max cut 0 Scintillation max cut 0
+Cerenkov max 0 Scintillation max 0
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/RightSiPM_0_Time_distribution_with_SiPM_and_filter_for_5_deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/Right SiPM 0 Time distribution for 5 deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/Right SiPM 0 Wavelength and Time distribution with SiPM and filter for 5 deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/RightSiPM0Wavelength_and_Time_distribution_for_5_deg.pdf
+Cerenkov max cut 0 Scintillation max cut 0
+Cerenkov max 0 Scintillation max 0
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/RightSiPM_1_Time_distribution_with_SiPM_and_filter_for_5_deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/Right SiPM 1 Time distribution for 5 deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/Right SiPM 1 Wavelength and Time distribution with SiPM and filter for 5 deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/RightSiPM1Wavelength_and_Time_distribution_for_5_deg.pdf
+Cerenkov max cut 0 Scintillation max cut 0
+Cerenkov max 0 Scintillation max 0
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/RightSiPM_2_Time_distribution_with_SiPM_and_filter_for_5_deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/Right SiPM 2 Time distribution for 5 deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/Right SiPM 2 Wavelength and Time distribution with SiPM and filter for 5 deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/RightSiPM2Wavelength_and_Time_distribution_for_5_deg.pdf
+Cerenkov max cut 0 Scintillation max cut 0
+Cerenkov max 0 Scintillation max 0
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/RightSiPM_3_Time_distribution_with_SiPM_and_filter_for_5_deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/Right SiPM 3 Time distribution for 5 deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/Right SiPM 3 Wavelength and Time distribution with SiPM and filter for 5 deg.pdf
+ERROR in TPDF::Open: Cannot open file:Plots/PbWO4/0425_2_gev/Angle_5_deg/RightSiPM3Wavelength_and_Time_distribution_for_5_deg.pdf

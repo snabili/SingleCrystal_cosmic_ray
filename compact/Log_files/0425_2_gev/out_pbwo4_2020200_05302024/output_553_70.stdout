@@ -1,0 +1,9 @@
+started at Thu May 30 14:36:33 EDT 2024
+ran setup
+ran thisdd4hep
+Angle value : 70
+Value of pi 3.1415926532
+Value of tan 2.7474774178 value of gun position z -41.2121612670
+ddsim --steeringFile /data/users/mparanjp/DD4hep/examples/SingleCrystal_cosmic_ray/compact/junkst2.py --compact /data/users/mparanjp/DD4hep/examples/SingleCrystal_cosmic_ray/compact/DRJunk.xml --runType batch --part.userParticleHandler='' -G --gun.position=0.,-15.,-41.2121612670 --gun.direction 0 1 2.7474774178 --gun.energy 2*GeV --gun.particle=e- -N 100 -O Root_files/Electrons/PbWO4/0425_2_gev/out_0425_70.root >& Spew_files/Electrons/PbWO4/0425_2_gev/out_cndr_0425_70.log
+
+finished at Thu May 30 14:58:26 EDT 2024

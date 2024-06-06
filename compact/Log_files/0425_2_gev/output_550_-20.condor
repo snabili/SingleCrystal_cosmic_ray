@@ -1,0 +1,44 @@
+000 (550.013.000) 05/28 16:44:37 Job submitted from host: <128.8.216.11:9618?addrs=128.8.216.11-9618&noUDP&sock=3241621_f53f_4>
+...
+001 (550.013.000) 05/28 16:44:38 Job executing on host: <10.1.0.27:9618?addrs=10.1.0.27-9618&alias=compute-0-11.privnet&noUDP&sock=startd_27085_a2b9>
+...
+006 (550.013.000) 05/28 16:55:12 Image size of job updated: 2
+	0  -  MemoryUsage of job (MB)
+	0  -  ResidentSetSize of job (KB)
+...
+004 (550.013.000) 05/28 16:55:12 Job was evicted.
+	(0) Job was not checkpointed.
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :        2        2   6786178 
+	   Memory (MB)          :        0        1      2268 
+...
+001 (550.013.000) 05/28 16:56:15 Job executing on host: <128.8.216.201:9618?addrs=128.8.216.201-9618&alias=hepcms-ce2.umd.edu&noUDP&sock=startd_3597131_3f79>
+...
+006 (550.013.000) 05/28 16:56:23 Image size of job updated: 74196
+	45  -  MemoryUsage of job (MB)
+	45940  -  ResidentSetSize of job (KB)
+...
+006 (550.013.000) 05/28 17:01:23 Image size of job updated: 1798960
+	1019  -  MemoryUsage of job (MB)
+	1043348  -  ResidentSetSize of job (KB)
+...
+005 (550.013.000) 05/28 17:06:06 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:09:12, Sys 0 00:00:03  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:09:12, Sys 0 00:00:03  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :     1.00        1         1 
+	   Disk (KB)            :     2           2   6207516 
+	   Memory (MB)          :  1019           0      2268 
+...
